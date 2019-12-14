@@ -1,4 +1,6 @@
 [![CircleCI](https://circleci.com/gh/jabranemohamed/SuiviBudget/tree/master.svg?style=svg)](https://circleci.com/gh/jabranemohamed/SuiviBudget/tree/master)
+[![codecov](https://codecov.io/gh/jabranemohamed/SuiviBudget/branch/master/graph/badge.svg)](https://codecov.io/gh/jabranemohamed/SuiviBudget)
+
 # Suivi Budget
 
 
