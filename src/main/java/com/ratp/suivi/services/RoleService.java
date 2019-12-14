@@ -3,6 +3,7 @@ package com.ratp.suivi.services;
 import com.ratp.suivi.domain.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +19,5 @@ public interface RoleService {
 
     Optional<Role> getRoleByLibelle(String libelle);
 
-    Page<Role> getAllRoles(PageRequest page);
+    Page<Role> getAllRoles(Pageable page);
 }

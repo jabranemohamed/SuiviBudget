@@ -40,12 +40,16 @@ public class UtilisateurServiceImplTest {
         singleUtilisateur = new Utilisateur().builder()
                 .matricule(MAT_AB_123456)
                 .nom("Martin")
+                .prenom("Titi")
+                .isActive(true)
                 .id(1L)
                 .build();
 
         Utilisateur user2 = new Utilisateur().builder()
                 .matricule("CA123456")
                 .nom("BERNARD")
+                .prenom("tati")
+                .isActive(true)
                 .id(2L)
                 .build();
 

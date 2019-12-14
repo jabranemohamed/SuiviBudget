@@ -29,7 +29,7 @@ public class LocalUnitServiceImplTest {
     @Test
     @DisplayName("Retourner tous les unités local")
     void getAllLocalUnit() {
-        LocalUnit lu = new LocalUnit();
+        LocalUnit lu = new LocalUnit().builder().code("SDP").build();
         List lis = Arrays.asList(lu);
 
         when(localUnitRepository.findAll()).thenReturn(lis);
