@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ class RoleControllerTest {
 
     MockMvc mockMvc;
 
-    List<Role> listRole;
+    List<Role> listRole = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
