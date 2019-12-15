@@ -52,7 +52,7 @@ public class UtilisateurController extends BaseController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 200, message = "OK")})
     @GetMapping(produces = {"application/json"}, path = "utilisateurs/{matricule}")
-    public ResponseEntity getAllUtilisateurs(@PathVariable(value = "codeUL", required = true) String matricule) {
+    public ResponseEntity getAllUtilisateurs(@PathVariable(value = "matricule", required = true) String matricule) {
 
         Optional<Utilisateur> userByMatricule = utilisateurService.getUserByMatricule(matricule);
         if (userByMatricule.isPresent())
