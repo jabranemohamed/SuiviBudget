@@ -50,7 +50,6 @@ public class CentreControllerTest {
     @Test
     void getAllCentre() throws Exception {
         given(centreService.getAllCentre(org.mockito.Matchers.isA(Pageable.class))).willReturn(pagedTasks);
-
         mockMvc.perform(get("/api/v1/centres"))
                 .andExpect(status().isOk());
     }
