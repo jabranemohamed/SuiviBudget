@@ -2,7 +2,7 @@ package com.ratp.suivi.services;
 
 import com.ratp.suivi.domain.Budget;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface BudgetService {
 
     List<Budget> getAllBudgetByUnitCodeYear(String localUnitCode, String annee);
 
-    Page<Budget> getAllBudgets(PageRequest pageRequest);
+    Page<Budget> getAllBudgets(Pageable pageRequest);
 
-    Page<Budget> getAllBudgetsByYearAndUnit(String codeUL, String year, PageRequest page);
+    Page<Budget> getAllBudgetsByYearAndUnit(String codeUL, String year, Pageable page);
 }
