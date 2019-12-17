@@ -11,6 +11,15 @@
 * Use Maven 3.6.0 or higher
 * Use Postgresql 9.5
 
+### Libraries
+* SpringBoot 2.2.2
+* Spring Security and JWT for the security
+* OpenApi and Swagger for the API
+* OpenCSV for Concerting CSV lines into Beans during Import CSV files
+
+### Installation
+....in progress
+
 ## Support
 For questions and help:
 * Please post in course
