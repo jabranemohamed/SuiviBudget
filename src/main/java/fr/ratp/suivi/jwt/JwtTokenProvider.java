@@ -39,7 +39,7 @@ public class JwtTokenProvider {
     private long validityInMilliseconds = 3600000; // 1h
 
     @Autowired
-    private MyUserDetails myUserDetails;
+    private final fr.ratp.suivi.jwt.MyUserDetails myUserDetails;
 
     @PostConstruct
     protected void init() {
