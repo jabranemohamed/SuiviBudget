@@ -33,6 +33,8 @@ public class Utilisateur {
     @Column(nullable = false)
     private Boolean isActive = true;
 
+    private String password;
+
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false, foreignKey = @ForeignKey(name = "FK_ROLE"))
     private Role role;

@@ -2,6 +2,7 @@ package fr.ratp.suivi.domain;
 
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
@@ -19,7 +20,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -34,4 +35,8 @@ public class Role {
     @Column(nullable = false)
     private Boolean isActive = true;
 
+    @Override
+    public String getAuthority() {
+        return libelle;
+    }
 }

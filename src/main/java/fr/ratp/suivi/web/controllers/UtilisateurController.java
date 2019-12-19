@@ -1,6 +1,7 @@
 package fr.ratp.suivi.web.controllers;
 
 import fr.ratp.suivi.domain.Utilisateur;
+import fr.ratp.suivi.exception.GlobalExceptionHandlerController;
 import fr.ratp.suivi.jwt.JwtTokenProvider;
 import fr.ratp.suivi.services.UtilisateurService;
 import io.swagger.annotations.Api;
@@ -13,10 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -46,7 +45,6 @@ public class UtilisateurController extends BaseController {
     }
 
 
-
     @ApiOperation(value = "Retourner un utilisateur identifié par son matricule")
     @ApiResponses(value = {@ApiResponse(code = 100, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Not Found"),
@@ -61,19 +59,28 @@ public class UtilisateurController extends BaseController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+
+    @ApiOperation(value = "Register a new User")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 422, message = "Username is already in use"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    @PostMapping(value = "utilisateurs/signup")
+    @ExceptionHandler(GlobalExceptionHandlerController.class)
+    public ResponseEntity signup(@RequestBody Utilisateur user) {
+        Utilisateur signedUser = utilisateurService.signup(user);
+        return new ResponseEntity<>(signedUser, HttpStatus.OK);
+    }
+
+
     @ApiOperation(value = "Login à l'application")
-    @ApiResponses(value = {@ApiResponse(code = 100, message = "Bad Request"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 200, message = "OK")})
-    @GetMapping("utilisateurs/login")
-    public ResponseEntity<?> getUser(Principal principal){
-        if(principal == null){
-            //This should be ok http status because here will be logout path.
-            return ResponseEntity.ok(principal);
-        }
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        Utilisateur user = utilisateurService.getUserById(1L).get();//TODO to change
-        user.setToken(tokenProvider.generateToken(authenticationToken));
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 422, message = "Invalid username/password supplied")})
+    @PostMapping(value = "utilisateurs/login")
+    @ExceptionHandler(GlobalExceptionHandlerController.class)
+    public ResponseEntity login(@RequestParam String username, @RequestParam String password) {
+        Utilisateur user = utilisateurService.signin(username, password);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
