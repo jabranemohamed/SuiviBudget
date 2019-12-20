@@ -35,6 +35,7 @@ public class Role implements GrantedAuthority {
     @Column(nullable = false)
     private Boolean isActive = true;
 
+    @Transient
     @Override
     public String getAuthority() {
         return libelle;

@@ -88,8 +88,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Optional<Utilisateur> byMatricule = utilisateurRepository.findByMatricule(username);
         Role role = byMatricule.get().getRole();
         String token = jwtTokenProvider.createToken(username, Arrays.asList(role));
+
         if (byMatricule.isPresent()) {
-            return byMatricule.get();
+            byMatricule.get().setToken(token);
+            return utilisateurRepository.save(byMatricule.get());
         } else
             return null; //TODO : to change better
 
