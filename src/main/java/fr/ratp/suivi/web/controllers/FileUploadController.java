@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -23,14 +20,15 @@ public class FileUploadController extends BaseController {
     @Autowired
     private final FileUploadService fileUploadService;
 
-    @PostMapping("/upload")
-    public ResponseEntity singleFileUpload(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/upload/{type}")
+    public ResponseEntity singleFileUpload(@RequestParam("file") MultipartFile file,
+                                           @PathVariable(value = "type", required = true) String type) {
 
-        if (file.isEmpty()) {
+        if(file == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         try {
-            fileUploadService.uploadFile(file, "className");
+            fileUploadService.uploadFile(file, type);
 
         } catch (IOException | ClassNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
