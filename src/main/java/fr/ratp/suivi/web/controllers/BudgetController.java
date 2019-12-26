@@ -46,7 +46,7 @@ public class BudgetController extends BaseController {
 
         pageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE_NUMBER : pageNumber;
         pageSize = (pageSize == null || pageSize < 1) ? DEFAULT_PAGE_SIZE : pageSize;
-        Page<Budget> pageOfOrigin = budgetService.getAllBudgetsByYearAndUnit(codeUL, annee, PageRequest.of(pageNumber, pageSize));
+        Page<Budget> pageOfOrigin = budgetService.getAllBudgetByUnitCodeYear(codeUL, annee, PageRequest.of(pageNumber, pageSize));
         return new ResponseEntity<>(pageOfOrigin, HttpStatus.OK);
     }
 

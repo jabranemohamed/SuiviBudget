@@ -2,6 +2,7 @@ package fr.ratp.suivi.services.impl;
 
 import fr.ratp.suivi.domain.Budget;
 import fr.ratp.suivi.repositories.BudgetRepository;
+import fr.ratp.suivi.repositories.LocalUnitRepository;
 import fr.ratp.suivi.services.BudgetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,9 @@ public class BudgetServiceImpl implements BudgetService {
 
     @Autowired
     private final BudgetRepository budgetRepository;
+
+    @Autowired
+    private final LocalUnitRepository localUnitRepository;
 
     @Override
     public List<Budget> getAllBudgetByUnitCode(String localUnitCode) {
@@ -47,8 +51,7 @@ public class BudgetServiceImpl implements BudgetService {
     }
 
     @Override
-    public Page<Budget> getAllBudgetsByYearAndUnit(String codeUL, String year, Pageable page) {
-
-        return budgetRepository.getAllBudgetsByYearAndUnit(codeUL, year, page);
+    public Page<Budget> getAllBudgetByUnitCodeYear(String codeUL, String year, Pageable page) {
+        return budgetRepository.getAllBudgetByUnitCodeYear(codeUL, year, page);
     }
 }

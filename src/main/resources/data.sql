@@ -23,17 +23,17 @@ INSERT INTO centre (id,code,local_unit_id,is_active) VALUES (1,'01171',1,true);
 INSERT INTO centre (id,code,local_unit_id,is_active) VALUES (2,'01169',2,true);
 
 -- Table des budgets --
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4)
-VALUES (1, 'Redevance', 'IBM', 2019, 100000, 120000, 100000, 103000, 110000);
+INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES (1, 'Redevance', 'IBM', 2019, 100000, 120000, 100000, 103000, 110000,1);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4)
-VALUES (2, 'Redevance', 'IBM', 2019, 100000, 120000, 100000, 103000, 110000);
+INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES (2, 'Redevance', 'IBM', 2019, 100000, 120000, 100000, 103000, 110000,1);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4)
-VALUES (3, 'Redevance', 'Qlik', 2019, 50000, 50000, 50000, 50000, 50000);
+INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES (3, 'Redevance', 'Qlik', 2019, 50000, 50000, 50000, 50000, 50000,1);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4)
-VALUES (4, 'TMA', 'Appli1', 2019, 80000, 80000, 80000, 80000, 90000);
+INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES (4, 'TMA', 'Appli1', 2019, 80000, 80000, 80000, 80000, 90000,1);
 
 
 

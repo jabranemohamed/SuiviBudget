@@ -19,5 +19,5 @@ public interface BudgetService {
 
     Page<Budget> getAllBudgets(Pageable pageRequest);
 
-    Page<Budget> getAllBudgetsByYearAndUnit(String codeUL, String year, Pageable page);
+    Page<Budget> getAllBudgetByUnitCodeYear(String codeUL, String year, Pageable page);
 }

@@ -20,5 +20,5 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
     List<Budget> getAllBudgetByUnitCodeYear(String localUnitCode, String annee);
 
     @Query("SELECT b FROM Budget b WHERE b.localUnit.code = ?1 AND b.annee = ?2")
-    Page<Budget> getAllBudgetsByYearAndUnit(String codeUL, String year, Pageable page);
+    Page<Budget> getAllBudgetByUnitCodeYear(String codeUL, String year, Pageable page);
 }
