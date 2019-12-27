@@ -35,13 +35,13 @@
 
 ## Table of Contents ##
 1. [Application](#Application)
-2. [Schéma des données](#Database-Schema)
+2. [Schéma des données](#Schéma-des-données)
 3. [Technologies](#Technologies)
-4. [Structure de l'application](#Application-Structure)
-5. [Executer l'application localement](#Running-the-server-locally)
-6. [Documentation API ](#API-Documentation)
-7. [Interface graphique (IHM)](#User-Interface)
-8. [Contribuer](#Contributor)
+4. [Structure Application](#Structure-Application)
+5. [Executer application localement](#Executer-application-localement)
+6. [Documentation API](#Documentation-API)
+7. [Interface graphique](#Interface-graphique)
+8. [Contribuer](#Contribuer)
 
 ## Application ##
 Cette application est preuve de concept du projet suivi du réalisé.C'est une application de suivi des commandes par rapport à des budgets .
@@ -55,7 +55,7 @@ Following libraries were used during the development of this starter kit :
 - **Angular** - Pour le front End 
 - **JWT** - Mechanisme d'Authentication pour l'API REST
 
-## Structure de l'application ##
+## Structure Application ##
 <img src="https://github.com/jabranemohamed/SuiviBudget/blob/master/docs/images/project-structure.png" alt="project structure">
   
 
@@ -75,5 +75,5 @@ Les differents models  de l'application sont organisés sous le package **_domai
 
 ## Reponse et gestion d'exception ##
 
-## Executer l'application localement ##
+## Executer application localement ##
 
