@@ -3,7 +3,7 @@
 
 <h1 align="center">
   <br>
-  <a><img src="https://github.com/jabranemohamed/SuiviBudget/master/docs/images/spring-framework.png" alt="spring boot"></a>
+  <a><img src="https://github.com/jabranemohamed/SuiviBudget/tree/master/docs/images/spring-framework.png" alt="spring boot"></a>
   <br>
   Suivi Budget
   <br>
