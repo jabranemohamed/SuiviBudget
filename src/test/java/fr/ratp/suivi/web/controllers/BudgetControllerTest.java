@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,6 +51,13 @@ public class BudgetControllerTest {
     void getAllBudget() throws Exception {
         given(budgetService.getAllBudgets(org.mockito.Matchers.isA(Pageable.class))).willReturn(pagedTasks);
         mockMvc.perform(get("/api/v1/budgets"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getBudgetsByYearAndUnit() throws Exception {
+        given(budgetService.getAllBudgetByUnitCodeYear(anyString(),anyString(),org.mockito.Matchers.isA(Pageable.class))).willReturn(pagedTasks);
+        mockMvc.perform(get("/api/v1/budgets/2019/SDP"))
                 .andExpect(status().isOk());
     }
 
