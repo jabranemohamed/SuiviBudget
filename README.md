@@ -56,7 +56,7 @@ Following libraries were used during the development of this starter kit :
 - **JWT** - Mechanisme d'Authentication pour l'API REST
 
 ## Application Structure ##
-<img src="https://github.com/jabranemohamed/SuiviBudget/blob/master/docs/images/projects-structure.png" alt="project structure">
+<img src="https://github.com/jabranemohamed/SuiviBudget/blob/master/docs/images/project-structure.png" alt="project structure">
   
 
 **_Models_**
