@@ -77,3 +77,10 @@ Les differents models  de l'application sont organisés sous le package **_domai
 
 ## Executer application localement ##
 
+## Documentation API ##
+
+## Interface graphique ##
+
+## Contributors ##
+[JABRANE MOHAMED](https://www.linkedin.com/in/mohamedhj/)
+
