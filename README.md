@@ -30,19 +30,35 @@
     <a alt="Contributions">
         <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" />
     </a>
-    <a alt="License">
-        <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
-    </a>
+    
 </p>
 
 ## Table of Contents ##
-1. [Philosophy](#Philosophy)
-2. [Application](#Application)
-3. [Database Schema](#Database-Schema)
-5. [Technology](#Technology)
-6. [Application Structure](#Application-Structure)
-7. [Run Locally](#Running-the-server-locally)
-9. [API Documentation](#API-Documentation)
-10. [User Interface](#User-Interface)
-11. [Contributor](#Contributor)
-12. [License](#License)
+1. [Application](#Application)
+2. [Schéma des données](#Database-Schema)
+3. [Technologies](#Technologies)
+4. [Structure de l'application ](#Application-Structure)
+5. [Executer l'application localement](#Running-the-server-locally)
+6. [Documentation API ](#API-Documentation)
+7. [Interface graphique (IHM)](#User-Interface)
+8. [Contribuer](#Contributor)
+
+## Application ##
+Cette application est preuve de concept du projet suivi du réalisé.C'est une application de suivi des commandes par rapport à des budgets .
+
+## Technologies ##
+Following libraries were used during the development of this starter kit :
+
+- **Spring Boot** - Pour la partie Serveur 
+- **PostgreSQL** - Base de donnée SQL 
+- **Swagger** - Pour la documentation de l'API
+- **Angular** - Pour le front End 
+- **JWT** - Mechanisme d'Authentication pour l'API REST
+
+## Application Structure ##
+<img src="https://github.com/jabranemohamed/SuiviBudget/blob/master/docs/images/projects-structure.png" alt="project structure">
+  
+
+**_Models_**
+
+Les differents models  de l'application sont organisés sous de package **_model_**
