@@ -78,6 +78,8 @@ Les differents models  de l'application sont organisés sous le package **_domai
 ## Executer application localement ##
 
 ## Documentation API ##
+La documentation a été générer par Swagger2, vous pouvez voir la documentation sur cette URL - http://localhost:8081/swagger-ui.html
+<img src="https://github.com/jabranemohamed/SuiviBudget/blob/master/docs/images/swagger-screens/api.png" alt="project structure">
 
 ## Interface graphique ##
 
