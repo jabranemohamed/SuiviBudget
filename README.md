@@ -81,8 +81,11 @@ Configurer la base de donnée soit en changement la configuration de la base dan
 soit en créeant des variables d'environement suivants et en precisant des valeurs.
 
 ${SERVER_PORT}
+
 ${POSTGRES_SCHEMA_URL}
+
 ${POSTGRES_HOST}
+
 ${POSTGRES_PASSWORD}
 
 ## Documentation API ##
