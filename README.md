@@ -76,6 +76,14 @@ Les differents models  de l'application sont organisés sous le package **_domai
 ## Reponse et gestion d'exception ##
 
 ## Executer application localement ##
+Importer le projet localement en on utilisant un IDE (intellij par exemple).
+Configurer la base de donnée soit en changement la configuration de la base dans application-dev.properties
+soit en créeant des variables d'environement suivants et en precisant des valeurs.
+
+${SERVER_PORT}
+${POSTGRES_SCHEMA_URL}
+${POSTGRES_HOST}
+${POSTGRES_PASSWORD}
 
 ## Documentation API ##
 La documentation a été générer par Swagger2, vous pouvez voir la documentation sur cette URL - 
