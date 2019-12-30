@@ -30,6 +30,9 @@ public class Utilisateur {
 
     private String prenom;
 
+    @Column(name="username")
+    private String username;
+
     @Column(nullable = false)
     private Boolean isActive = true;
 

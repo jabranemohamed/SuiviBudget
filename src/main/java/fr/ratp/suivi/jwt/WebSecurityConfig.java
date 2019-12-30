@@ -4,15 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -26,29 +27,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private final JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // Disable CSRF (cross site request forgery)
-        http.csrf().disable();
+//Cross-origin-resource-sharing: localhost:8080, localhost:4200, 3000(allow for it.)
+        http.cors().and()
+                .authorizeRequests()
+                //These are public pages.
+                .antMatchers("/resources/**", "/error","/api/v1/utilisateurs/login", "/api/v1/utilisateurs/**").permitAll()
 
-        // No session will be created or used by spring security
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                //All reamining paths should need authentication.
+                .anyRequest().fullyAuthenticated()
+                .and()
+                //Logout will log the user out by invalidated session.
+                .logout().permitAll()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/api/user/logout", "POST"))
+                .and()
+                //login form and path.  path -> /api/v1/utilisateurs/login
+                //.formLogin().loginPage("/api/v1/utilisateurs/login").and()
+                //Enable basic authentication http header "basic: username:password"
+                .httpBasic().and()
+                //Cross side request forgery.
+                .csrf().disable();
 
-        // Entry points
-        http.authorizeRequests()//
-                .antMatchers("/api/v1/utilisateurs/login").permitAll()//
-                .antMatchers("/api/v1/utilisateurs/signup").permitAll()//
-                .antMatchers("/api/v1/**").permitAll()// TODO : to remove
-                .antMatchers("/h2-console/**/**").permitAll()
-                // Disallow everything else..
-                .anyRequest().authenticated();
-
-        // If a user try to access a resource without having enough permissions
-        http.exceptionHandling().accessDeniedPage("/login");
-
-        // Apply JWT
-        http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+        //jwt filter
+        http.addFilter(new JwtTokenFilter(authenticationManager(), jwtTokenProvider));
 
         // Optional, if you want to test the API from a browser
         // http.httpBasic();
@@ -76,10 +82,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(12);
     }
 
-    @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -97,5 +102,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+
 
 }

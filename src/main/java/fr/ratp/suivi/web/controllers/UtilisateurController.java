@@ -1,5 +1,6 @@
 package fr.ratp.suivi.web.controllers;
 
+import fr.ratp.suivi.domain.Role;
 import fr.ratp.suivi.domain.Utilisateur;
 import fr.ratp.suivi.exception.GlobalExceptionHandlerController;
 import fr.ratp.suivi.jwt.JwtTokenProvider;
@@ -14,8 +15,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -69,7 +72,7 @@ public class UtilisateurController extends BaseController {
     @PostMapping(value = "utilisateurs/signup")
     @ExceptionHandler(GlobalExceptionHandlerController.class)
     public ResponseEntity signup(@RequestBody Utilisateur user) {
-        Utilisateur signedUser = utilisateurService.signup(user);
+            Utilisateur signedUser = utilisateurService.signup(user);
         return new ResponseEntity<>(signedUser, HttpStatus.OK);
     }
 
@@ -77,10 +80,16 @@ public class UtilisateurController extends BaseController {
     @ApiOperation(value = "Login à l'application")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 422, message = "Invalid username/password supplied")})
-    @PostMapping(value = "utilisateurs/login")
-    @ExceptionHandler(GlobalExceptionHandlerController.class)
-    public ResponseEntity login(@RequestParam String username, @RequestParam String password) {
-        Utilisateur user = utilisateurService.signin(username, password);
+    @GetMapping(value = "utilisateurs/login")
+    public ResponseEntity<?> login(Principal principal) {
+        if(principal == null){
+            //This should be ok http status because here will be logout path.
+            return ResponseEntity.ok(principal);
+        }
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
+        Utilisateur user = utilisateurService.getUserByUserName(authenticationToken.getName()).get();
+        Role role = user.getRole();
+        user.setToken(tokenProvider.generateToken(authenticationToken.getName(),role));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

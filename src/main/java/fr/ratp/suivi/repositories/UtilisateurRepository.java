@@ -15,6 +15,8 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> 
 
     Optional<Utilisateur> findByMatricule(String matricule);
 
+    Optional<Utilisateur> findByUsername(String userName);
+
     @Query("SELECT u FROM Utilisateur u WHERE u.isActive = true")
     List<Utilisateur> findAllActiveUsers();
 }

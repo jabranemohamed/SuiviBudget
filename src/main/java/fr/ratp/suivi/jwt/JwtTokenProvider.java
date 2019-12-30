@@ -1,27 +1,21 @@
 package fr.ratp.suivi.jwt;
 
 import fr.ratp.suivi.domain.Role;
-import fr.ratp.suivi.exception.CustomException;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -32,63 +26,58 @@ public class JwtTokenProvider {
      * THIS IS NOT A SECURE PRACTICE! For simplicity, we are storing a static key here. Ideally, in a
      * microservices environment, this key would be kept on a config-server.
      */
-    @Value("${security.jwt.token.secret-key:secret-key}")
-    private String secretKey;
+    @Value("${app.jwt.secret}")
+    private String jwtSecret;
 
-    @Value("${security.jwt.token.expire-length:3600000}")
-    private long validityInMilliseconds = 3600000; // 1h
+    @Value("${app.jwt.token.prefix}")
+    private String jwtTokenPrefix;
 
-    @Autowired
-    private final fr.ratp.suivi.jwt.MyUserDetails myUserDetails;
+    @Value("${app.jwt.header.string}")
+    private String jwtHeaderString;
 
-    @PostConstruct
-    protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    @Value("${app.jwt.expiration-in-ms}")
+    private Long jwtExpirationInMs;
+
+    public String generateToken(String username,Role role){
+        String authorities = role.getLibelle();
+
+        return Jwts.builder().setSubject(username).claim("roles", authorities)
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 
-    public String createToken(String username, List<Role> roles) {
-
-        Claims claims = Jwts.claims().setSubject(username);
-        claims.put("auth", roles.stream()
-                .map(s -> new SimpleGrantedAuthority(s.getAuthority()))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList()));
-
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
-
-        return Jwts.builder()//
-                .setClaims(claims)//
-                .setIssuedAt(now)//
-                .setExpiration(validity)//
-                .signWith(SignatureAlgorithm.HS256, secretKey)//
-                .compact();
+    public Authentication getAuthentication(HttpServletRequest request){
+        String token = resolveToken(request);
+        if(token == null){
+            return null;
+        }
+        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+        String username = claims.getSubject();
+        List<GrantedAuthority> authorities = Arrays.stream(claims.get("roles").toString().split(","))
+                .map(role -> role.startsWith("ROLE_")?role:"ROLE_"+role)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        return username!=null ? new UsernamePasswordAuthenticationToken(username, null, authorities): null;
     }
 
-    public Authentication getAuthentication(String token) {
-        UserDetails userDetails = myUserDetails.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    public boolean validateToken(HttpServletRequest request){
+        String token = resolveToken(request);
+        if(token == null){
+            return false;
+        }
+        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+        if(claims.getExpiration().before(new Date())){
+            return false;
+        }
+        return true;
     }
 
-    public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-    }
-
-    public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+    private String resolveToken(HttpServletRequest req){
+        String bearerToken = req.getHeader(jwtHeaderString);
+        if(bearerToken != null && bearerToken.startsWith(jwtTokenPrefix)){
+            return bearerToken.substring(7, bearerToken.length());
         }
         return null;
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            throw new CustomException("Expired or invalid JWT token", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
 }
