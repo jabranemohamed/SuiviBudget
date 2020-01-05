@@ -35,6 +35,14 @@ VALUES (3, 'Redevance', 'Qlik', 2019, 50000, 50000, 50000, 50000, 50000,1);
 INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
 VALUES (4, 'TMA', 'Appli1', 2019, 80000, 80000, 80000, 80000, 90000,1);
 
+-- Table des commandes--
+INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee)
+values('3816623','1838666','00733834','ADSERVIO','TMA application 1 T1','Benoit',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',1,'2019');
+
+
+
+
+
 
 
 

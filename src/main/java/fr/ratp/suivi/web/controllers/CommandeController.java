@@ -6,17 +6,17 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
-@Api(value = "Commande", description = "Point d'entrer pour la ressource commands")
-public class CommandController extends BaseController{
+@Api(value = "Commande", description = "Point d'entrer pour la ressource commandes")
+public class CommandeController extends BaseController {
 
     @Autowired
     private CommandeService commandeService;
@@ -31,8 +31,8 @@ public class CommandController extends BaseController{
 
         pageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE_NUMBER : pageNumber;
         pageSize = (pageSize == null || pageSize < 1) ? DEFAULT_PAGE_SIZE : pageSize;
-        List<Commande> pageOfOrigin = commandeService.getAllCommandByUnitCodeYear(codeUL,annee);
-        return new ResponseEntity<>(pageOfOrigin, HttpStatus.OK);
+        Page<Commande> pageOfCommande = commandeService.getAllCommandByUnitCodeYear(codeUL, annee, PageRequest.of(pageNumber, pageSize));
+        return new ResponseEntity<>(pageOfCommande, HttpStatus.OK);
     }
 
 }

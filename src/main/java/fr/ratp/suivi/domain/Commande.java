@@ -22,9 +22,6 @@ import java.util.Date;
 public class Commande {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
     @Column(unique = true, nullable = false)
     private String id_dist_cmd;
 
@@ -42,6 +39,20 @@ public class Commande {
 
     @Column(nullable = false)
     private String moe_prescripteur;
+
+    private BigDecimal budget_grande_activite;
+
+    private BigDecimal budget_activite;
+
+    private BigDecimal budget_notifie;
+
+    private BigDecimal bud_budgget_estime1;
+
+    private BigDecimal bud_budgget_estime2;
+
+    private BigDecimal bud_budgget_estime3;
+
+    private BigDecimal bud_budgget_estime4;
 
     private BigDecimal qte_engagee_annee_en_cours;
 
@@ -71,7 +82,9 @@ public class Commande {
 
     private BigDecimal segment7;
 
-    private String catgory_marche;
+    private String catgory;
+
+    private String marche;
 
     private String desc_ligne_cmd;
 
@@ -82,6 +95,7 @@ public class Commande {
     private String nouveau_segment7;
 
     @ManyToOne
+    @JoinColumn(name = "localUnit_id", nullable = false, foreignKey = @ForeignKey(name = "FK_LocalUnit"))
     private LocalUnit localUnit;
 
     private String annee;

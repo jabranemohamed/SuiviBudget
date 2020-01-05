@@ -46,7 +46,6 @@ public class BudgetServiceImpl implements BudgetService {
 
     @Override
     public Page<Budget> getAllBudgets(Pageable pageRequest) {
-
         return budgetRepository.findAll(pageRequest);
     }
 
