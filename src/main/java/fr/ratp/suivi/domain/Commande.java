@@ -40,9 +40,9 @@ public class Commande {
     @Column(nullable = false)
     private String moe_prescripteur;
 
-    private BigDecimal budget_grande_activite;
+    private String budget_grande_activite;
 
-    private BigDecimal budget_activite;
+    private String budget_activite;
 
     private BigDecimal budget_notifie;
 

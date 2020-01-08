@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
@@ -48,6 +50,16 @@ public class BudgetController extends BaseController {
         pageSize = (pageSize == null || pageSize < 1) ? DEFAULT_PAGE_SIZE : pageSize;
         Page<Budget> pageOfOrigin = budgetService.getAllBudgetByUnitCodeYear(codeUL, annee, PageRequest.of(pageNumber, pageSize));
         return new ResponseEntity<>(pageOfOrigin, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Retourner les infos d'un budget identifié par une année , codeUnit,grandActivité,activité")
+    @GetMapping(produces = {"application/json"}, path = "budget-infos/{codeUL}/{annee}/{grandActivite}/{activite}")
+    public ResponseEntity getBudgetsByYearAndUnit(@PathVariable(value = "codeUL", required = true) String codeUL,
+                                                  @PathVariable(value = "annee", required = true) String annee,
+                                                  @PathVariable(value = "grandActivite", required = true) String grandActivite,
+                                                  @PathVariable(value = "activite", required = true) String activite) {
+        List<Budget> budgetInfos = budgetService.getBudgetInfos(codeUL, annee, grandActivite, activite);
+        return new ResponseEntity<>(budgetInfos.get(0), HttpStatus.OK);
     }
 
 

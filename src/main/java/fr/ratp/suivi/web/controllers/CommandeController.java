@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
@@ -32,6 +34,14 @@ public class CommandeController extends BaseController {
         pageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE_NUMBER : pageNumber;
         pageSize = (pageSize == null || pageSize < 1) ? DEFAULT_PAGE_SIZE : pageSize;
         Page<Commande> pageOfCommande = commandeService.getAllCommandByUnitCodeYear(codeUL, annee, PageRequest.of(pageNumber, pageSize));
+        return new ResponseEntity<>(pageOfCommande, HttpStatus.OK);
+    }
+
+
+    @ApiOperation(value = "Mettre à jour les commandes")
+    @PutMapping(path = "commandes")
+    public ResponseEntity getBudgetsByYearAndUnit(@RequestBody List<Commande> commandes) {
+        Page<Commande> pageOfCommande = null;
         return new ResponseEntity<>(pageOfCommande, HttpStatus.OK);
     }
 

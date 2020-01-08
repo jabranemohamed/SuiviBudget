@@ -40,7 +40,6 @@ public class BudgetServiceImpl implements BudgetService {
 
     @Override
     public List<Budget> getAllBudgetByUnitCodeYear(String codeUL, String year) {
-
         return budgetRepository.getAllBudgetByUnitCodeYear(codeUL, year);
     }
 
@@ -53,4 +52,10 @@ public class BudgetServiceImpl implements BudgetService {
     public Page<Budget> getAllBudgetByUnitCodeYear(String codeUL, String year, Pageable page) {
         return budgetRepository.getAllBudgetByUnitCodeYear(codeUL, year, page);
     }
+
+    @Override
+    public List<Budget> getBudgetInfos(String codeUL, String annee, String grandActivite, String activite) {
+        return budgetRepository.getAllByLocalUnitAndAnneeAndGrandeActiviteAndActivite(codeUL, annee, grandActivite,activite);
+    }
+
 }

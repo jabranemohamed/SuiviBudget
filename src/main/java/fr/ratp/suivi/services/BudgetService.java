@@ -20,4 +20,6 @@ public interface BudgetService {
     Page<Budget> getAllBudgets(Pageable pageRequest);
 
     Page<Budget> getAllBudgetByUnitCodeYear(String codeUL, String year, Pageable page);
+
+    List<Budget> getBudgetInfos(String codeUL, String annee, String grandActivite, String activite);
 }
