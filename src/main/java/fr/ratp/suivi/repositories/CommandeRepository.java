@@ -10,10 +10,10 @@ import java.util.List;
 
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
-    @Query("SELECT c FROM Commande c WHERE c.localUnit.code = ?1 AND c.annee = ?2")
+    @Query("SELECT c FROM Commande c WHERE c.localUnit.code = ?1 AND c.annee = ?2 ORDER BY c.id_dist_cmd")
     List<Commande> getAllBudgetByUnitCodeYear(String localUnitCode, String annee);
 
-    @Query("SELECT c FROM Commande c WHERE c.localUnit.code = ?1 AND c.annee = ?2")
+    @Query("SELECT c FROM Commande c WHERE c.localUnit.code = ?1 AND c.annee = ?2 ORDER BY c.id_dist_cmd")
     Page<Commande> getAllBudgetByUnitCodeYear(String codeUL, String year, Pageable page);
 
 }

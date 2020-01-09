@@ -11,4 +11,6 @@ public interface CommandeService {
     List<Commande> getAllCommandByUnitCodeYear(String localUnitCode, String annee);
 
     Page<Commande> getAllCommandByUnitCodeYear(String codeUL, String year, Pageable page);
+
+    List<Commande> updateCommandes(List<Commande> commandes);
 }

@@ -54,8 +54,8 @@ public class CommandeController extends BaseController {
     @ApiOperation(value = "Mettre à jour les commandes")
     @PutMapping(path = "commandes")
     public ResponseEntity getBudgetsByYearAndUnit(@RequestBody List<Commande> commandes) {
-        Page<Commande> pageOfCommande = null;
-        return new ResponseEntity<>(pageOfCommande, HttpStatus.OK);
+        List<Commande> updatedCommandes = commandeService.updateCommandes(commandes);
+        return new ResponseEntity<>(updatedCommandes, HttpStatus.OK);
     }
 
 }

@@ -31,4 +31,9 @@ public class CommandeServiceImpl implements CommandeService {
     public Page<Commande> getAllCommandByUnitCodeYear(String codeUL, String year, Pageable page) {
         return commandeRepository.getAllBudgetByUnitCodeYear(codeUL, year, page);
     }
+
+    @Override
+    public List<Commande> updateCommandes(List<Commande> commandes) {
+        return commandeRepository.saveAll(commandes);
+    }
 }
