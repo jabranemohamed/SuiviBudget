@@ -30,7 +30,7 @@ public class FileUploadController extends BaseController {
         try {
             fileUploadService.uploadFile(file, type);
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);

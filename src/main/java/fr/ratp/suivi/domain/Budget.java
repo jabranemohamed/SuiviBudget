@@ -3,6 +3,7 @@ package fr.ratp.suivi.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -17,16 +18,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Budget {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+public class Budget implements Serializable {
 
-    //A better design to change to OneRef to an other POJO or ENUM but for now we keep it simple as String
-    @Column(nullable = false)
-    private String grandeActivite;
-
-    private String activite;
+    @EmbeddedId
+    private BudgetId budgetId;
 
     private BigDecimal budget_notifie;
 

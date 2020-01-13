@@ -88,11 +88,13 @@ public class Commande {
 
     private String desc_ligne_cmd;
 
-    private String cmd_a_regulariser;
+    private boolean cmd_a_regulariser;
 
-    private String cmd_regularisee;
+    private BigDecimal montant_Regularise;
 
-    private String nouveau_segment7;
+    private boolean cmd_regularisee;
+
+    private BigDecimal nouveau_segment7;
 
     @ManyToOne
     @JoinColumn(name = "localUnit_id", nullable = false, foreignKey = @ForeignKey(name = "FK_LocalUnit"))

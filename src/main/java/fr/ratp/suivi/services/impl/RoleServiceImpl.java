@@ -6,8 +6,6 @@ import fr.ratp.suivi.services.RoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +22,8 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    public List<Role> getAllRoles() {
-        return roleRepository.findAll();
+    public List<Role> getAllActiveRoles() {
+        return roleRepository.findAllActive();
     }
 
     @Override
@@ -35,12 +33,6 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Optional<Role> getRoleByLibelle(String libelle) {
-
-        return roleRepository.findByLibelle(libelle);
-    }
-
-    @Override
-    public Page<Role> getAllRoles(Pageable page) {
-        return roleRepository.findAll(page);
+        return roleRepository.findByLibelleAndIsActive(libelle, true);
     }
 }

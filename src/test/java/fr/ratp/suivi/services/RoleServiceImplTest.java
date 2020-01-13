@@ -35,13 +35,13 @@ public class RoleServiceImplTest {
         Role role = new Role();
         role.setId(ROLE_ID);
         List roles = Arrays.asList(role);
-        when(roleRepository.findAll()).thenReturn(roles);
+        when(roleRepository.findAllActive()).thenReturn(roles);
 
-        List<Role> allRoles = roleService.getAllRoles();
+        List<Role> allRoles = roleService.getAllActiveRoles();
         assertThat(allRoles).isNotNull();
         assertThat(allRoles.size()).isEqualTo(1);
 
-        verify(roleRepository).findAll();
+        verify(roleRepository).findAllActive();
     }
 
     @Test
@@ -62,12 +62,12 @@ public class RoleServiceImplTest {
     void getRoleByLibelle() {
         Role role = new Role();
         role.setLibelle(ROLE_1);
-        when(roleRepository.findByLibelle(ROLE_1)).thenReturn(Optional.of(role));
+        when(roleRepository.findByLibelleAndIsActive(ROLE_1,true)).thenReturn(Optional.of(role));
 
         Optional<Role> result = roleService.getRoleByLibelle(ROLE_1);
         assertThat(result.get()).isNotNull();
 
-        verify(roleRepository).findByLibelle(ROLE_1);
+        verify(roleRepository).findByLibelleAndIsActive(ROLE_1,true);
     }
 
 }

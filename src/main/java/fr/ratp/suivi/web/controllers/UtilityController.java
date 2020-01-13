@@ -45,7 +45,7 @@ public class UtilityController extends BaseController {
                                                     @PathVariable(value = "codeUL", required = false) String localUnit) throws JsonProcessingException {
 
         List<Budget> allBudgetByUnitCodeYear = budgetService.getAllBudgetByUnitCodeYear(localUnit, annee);
-        List<String> pageOfOrigin = allBudgetByUnitCodeYear.stream().map(b -> b.getGrandeActivite()).distinct().collect(Collectors.toList());
+        List<String> pageOfOrigin = allBudgetByUnitCodeYear.stream().map(b -> b.getBudgetId().getGrandeActivite()).distinct().collect(Collectors.toList());
 
         ObjectMapper objectMapper = new ObjectMapper();
         //Set pretty printing of json
@@ -66,7 +66,7 @@ public class UtilityController extends BaseController {
                                               @PathVariable(value = "codeUL", required = false) String localUnit) throws JsonProcessingException {
 
         List<Budget> allBudgetByUnitCodeYear = budgetService.getAllBudgetByUnitCodeYear(localUnit, annee);
-        List<String> pageOfOrigin = allBudgetByUnitCodeYear.stream().filter(b -> b.getGrandeActivite().equals(grandeActivite)).map(a -> a.getActivite()).distinct().collect(Collectors.toList());
+        List<String> pageOfOrigin = allBudgetByUnitCodeYear.stream().filter(b -> b.getBudgetId().getGrandeActivite().equals(grandeActivite)).map(a -> a.getBudgetId().getActivite()).distinct().collect(Collectors.toList());
 
         ObjectMapper objectMapper = new ObjectMapper();
         //Set pretty printing of json
@@ -93,7 +93,7 @@ public class UtilityController extends BaseController {
 
             Optional<Statistics> first = result
                     .stream()
-                    .filter(t -> t.getGrandeActivite().equals(allBudgets.get(i.get()).getGrandeActivite()))
+                    .filter(t -> t.getGrandeActivite().equals(allBudgets.get(i.get()).getBudgetId().getGrandeActivite()))
                     .findFirst();
 
             Budget budget = allBudgets.get(i.get());
@@ -108,7 +108,7 @@ public class UtilityController extends BaseController {
 
             } else {
                 result.add(new Statistics().builder()
-                        .grandeActivite(budget.getGrandeActivite())
+                        .grandeActivite(budget.getBudgetId().getGrandeActivite())
                         .budget_notifie(budget.getBudget_notifie())
                         .estime1(budget.getEstime1())
                         .estime2(budget.getEstime2())

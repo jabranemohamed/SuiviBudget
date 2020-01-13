@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -49,7 +48,7 @@ class RoleControllerTest {
 
     @Test
     void getAllRole() throws Exception {
-        given(roleService.getAllRoles(org.mockito.Matchers.isA(Pageable.class))).willReturn(pagedTasks);
+        given(roleService.getAllActiveRoles()).willReturn(listRole);
         mockMvc.perform(get("/api/v1/roles"))
                 .andExpect(status().isOk());
     }

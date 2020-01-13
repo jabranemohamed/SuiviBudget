@@ -1,6 +1,7 @@
 package fr.ratp.suivi.services;
 
 import fr.ratp.suivi.domain.Budget;
+import fr.ratp.suivi.domain.BudgetId;
 import fr.ratp.suivi.domain.LocalUnit;
 import fr.ratp.suivi.repositories.BudgetRepository;
 import fr.ratp.suivi.services.impl.BudgetServiceImpl;
@@ -88,17 +89,16 @@ public class BudgetServiceImplTest {
     private static Budget budgetBuilderInstance(String grandeActivite, String activite, BigDecimal budget_notifie,
                                                 BigDecimal estime1, BigDecimal estime2, BigDecimal estime3,
                                                 BigDecimal estime4, String annee, LocalUnit lu) {
+        BudgetId budgetId = new BudgetId().builder().activite(activite).grandeActivite(grandeActivite).build();
         return new Budget().builder()
-                .activite(activite)
+                .budgetId(budgetId)
                 .annee(annee)
                 .estime1(estime1)
                 .estime2(estime2)
                 .estime3(estime3)
                 .budget_notifie(budget_notifie)
                 .estime4(estime4)
-                .grandeActivite(grandeActivite)
                 .localUnit(lu)
-                .id(1L)
                 .build();
     }
 }

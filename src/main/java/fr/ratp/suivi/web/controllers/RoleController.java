@@ -8,14 +8,13 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,12 +34,9 @@ public class RoleController extends BaseController {
             }
     )
     @GetMapping(produces = {"application/json"}, path = "roles")
-    public ResponseEntity getAllRole(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
-                                              @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+    public ResponseEntity getAllRole() {
 
-        pageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE_NUMBER : pageNumber;
-        pageSize = (pageSize == null || pageSize < 1) ? DEFAULT_PAGE_SIZE : pageSize;
-        Page<Role> pageOfOrigin = roleService.getAllRoles(PageRequest.of(pageNumber, pageSize));
+        List<Role> pageOfOrigin = roleService.getAllActiveRoles();
         return new ResponseEntity<>(pageOfOrigin, HttpStatus.OK);
 
     }

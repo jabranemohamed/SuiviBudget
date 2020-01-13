@@ -22,7 +22,7 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
     @Query("SELECT b FROM Budget b WHERE b.localUnit.code = ?1 AND b.annee = ?2")
     Page<Budget> getAllBudgetByUnitCodeYear(String codeUL, String year, Pageable page);
 
-    @Query("SELECT b FROM Budget b WHERE b.localUnit.code = ?1 AND b.annee = ?2 AND b.grandeActivite = ?3 AND b.activite = ?4")
+    @Query("SELECT b FROM Budget b WHERE b.localUnit.code = ?1 AND b.annee = ?2 AND b.budgetId.grandeActivite = ?3 AND b.budgetId.activite = ?4")
     List<Budget> getAllByLocalUnitAndAnneeAndGrandeActiviteAndActivite(String codeUL, String year,String grandActivite,String activite);
 
 
