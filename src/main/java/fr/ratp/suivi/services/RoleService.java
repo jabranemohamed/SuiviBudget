@@ -15,4 +15,6 @@ public interface RoleService {
     Optional<Role> getRoleById(Long id);
 
     Optional<Role> getRoleByLibelle(String libelle);
+
+    Role updateRole(Role role);
 }

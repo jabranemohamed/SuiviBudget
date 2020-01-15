@@ -103,13 +103,18 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             if (user.getRole() == null) //HardCoded till there are logic
                 user.setRole(roleRepository.findAll().get(0));
 
-           // String token = jwtTokenProvider.generateToken(user.getMatricule(), user.getRole());
-          //  user.setToken(token);
+            // String token = jwtTokenProvider.generateToken(user.getMatricule(), user.getRole());
+            //  user.setToken(token);
             return utilisateurRepository.save(user);
 
         } else {
             throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
         }
+    }
+
+    @Override
+    public Utilisateur update(Utilisateur utilisateur) {
+            return utilisateurRepository.save(utilisateur);
     }
 
 }

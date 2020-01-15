@@ -1,10 +1,7 @@
 package fr.ratp.suivi.services.fileUpload;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import fr.ratp.suivi.repositories.CentreRepository;
-import fr.ratp.suivi.repositories.LocalUnitRepository;
-import fr.ratp.suivi.repositories.RoleRepository;
-import fr.ratp.suivi.repositories.UtilisateurRepository;
+import fr.ratp.suivi.repositories.*;
 import fr.ratp.suivi.services.fileUpload.importer.BudgetImporter;
 import fr.ratp.suivi.services.fileUpload.importer.CenterImporter;
 import fr.ratp.suivi.services.fileUpload.importer.RoleImporter;
@@ -42,8 +39,10 @@ public class FileUploadService {
     @Autowired
     private final UtilisateurRepository utilisateurRepository;
 
+    @Autowired
+    private final BudgetRepository budgetRepository;
+
     public static final String BEAN_PACKAGE_PATH = "fr.ratp.suivi.services.fileUpload.beans.";
-    public static final String IMPORTER_PACKAGE_PATH = "fr.ratp.suivi.services.fileUpload.importer.";
 
     public void uploadFile(MultipartFile multipartFile, String PojoName) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class<?> aClass = Class.forName(BEAN_PACKAGE_PATH + PojoName + "Bean");
@@ -67,7 +66,7 @@ public class FileUploadService {
                 roleImporter.importData(beans);
                 break;
             case "Budget":
-                BudgetImporter budgetImporter = new BudgetImporter();
+                BudgetImporter budgetImporter = new BudgetImporter(budgetRepository,localUnitRepository);
                 budgetImporter.importData(beans);
                 break;
             case "Centre":

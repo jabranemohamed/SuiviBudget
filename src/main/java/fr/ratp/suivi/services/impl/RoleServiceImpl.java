@@ -35,4 +35,9 @@ public class RoleServiceImpl implements RoleService {
     public Optional<Role> getRoleByLibelle(String libelle) {
         return roleRepository.findByLibelleAndIsActive(libelle, true);
     }
+
+    @Override
+    public Role updateRole(Role role) {
+        return roleRepository.save(role);
+    }
 }

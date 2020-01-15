@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -49,7 +48,7 @@ public class CentreControllerTest {
 
     @Test
     void getAllCentre() throws Exception {
-        given(centreService.getAllCentre(org.mockito.Matchers.isA(Pageable.class))).willReturn(pagedTasks);
+        given(centreService.getAllActiveCentre()).willReturn(centreList);
         mockMvc.perform(get("/api/v1/centres"))
                 .andExpect(status().isOk());
     }

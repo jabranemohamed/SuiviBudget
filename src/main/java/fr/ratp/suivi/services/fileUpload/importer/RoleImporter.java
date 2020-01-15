@@ -46,7 +46,9 @@ public class RoleImporter extends BaseImporter {
         List<Role> rolesToCreateOrUpdate = new ArrayList<>();
 
         roleFromCSVFile.stream().forEach(roleCSV -> {
-            boolean b = existingRole.stream().anyMatch(role -> role.getLibelle().equals(roleCSV.getLibelle()));
+            boolean b = existingRole
+                    .stream()
+                    .anyMatch(role -> role.getLibelle().equals(roleCSV.getLibelle()));
             if (!b) {
                 Role newRole = new Role().builder().isActive(true).description(roleCSV.getDescription()).libelle(roleCSV.getLibelle()).build();
                 rolesToCreateOrUpdate.add(newRole);
@@ -54,15 +56,17 @@ public class RoleImporter extends BaseImporter {
         });
         //Verifié si ce que exist dans la base est comme celui du fichier CSV
         existingRole.stream().forEach(role -> {
-            Optional<RoleBean> roleFound = roleFromCSVFile.stream().filter(roleCSV -> role.getLibelle().equals(roleCSV.getLibelle())).findFirst();
+            Optional<RoleBean> roleFound = roleFromCSVFile
+                    .stream()
+                    .filter(roleCSV -> role.getLibelle().equals(roleCSV.getLibelle()))
+                    .findFirst();
             if (roleFound.isPresent()) { //L'object exist dans la base et dans le fichier
                 role.setDescription(roleFound.get().getDescription());
                 role.setIsActive(true);
-                rolesToCreateOrUpdate.add(role);
             } else {
                 role.setIsActive(false);
-                rolesToCreateOrUpdate.add(role);
             }
+            rolesToCreateOrUpdate.add(role);
 
         });
         if (!rolesToCreateOrUpdate.isEmpty())

@@ -22,7 +22,7 @@ import java.util.Optional;
 public class CenterImporter extends BaseImporter {
 
     @Autowired
-    private  final CentreRepository centreRepository;
+    private final CentreRepository centreRepository;
 
     @Autowired
     private final LocalUnitRepository localUnitRepository;
@@ -35,7 +35,9 @@ public class CenterImporter extends BaseImporter {
         List<Centre> centreToCreateOrUpdate = new ArrayList<>();
 
         centreFromCSVFile.stream().forEach(centreCSV -> {
-            boolean b = existingCentre.stream().anyMatch(centre -> centre.getCode().equals(centreCSV.getCentreCode()));
+            boolean b = existingCentre
+                    .stream()
+                    .anyMatch(centre -> centre.getCode().equals(centreCSV.getCentreCode()));
             if (!b) { //Centre does not exist
                 Optional<LocalUnit> localUnitCode = localUnitRepository.findByCode(centreCSV.getUnitCode());
                 if (localUnitCode.isPresent()) {
@@ -48,8 +50,19 @@ public class CenterImporter extends BaseImporter {
         });
         //Verify if what exist in dataBase is still in the CSV file otherwise desactivate them
         existingCentre.stream().forEach(centre -> {
-            boolean b = centreFromCSVFile.stream().anyMatch(centreCSV -> centre.getCode().equals(centreCSV.getCentreCode()));
-            if (!b) {
+            Optional<CentreBean> centerFromCSVFile = centreFromCSVFile
+                    .stream()
+                    .filter(centreCSV -> centre.getCode().equals(centreCSV.getCentreCode()))
+                    .findFirst();
+            if (centerFromCSVFile.isPresent()) { //L'object centre existe dans la base et le fichier CSV
+                if (!centre.getLocalUnit().getCode().equals(centerFromCSVFile.get().getUnitCode())) {
+                    //Si le code d'unité du centre change on doit alors mettre a jour
+                    Optional<LocalUnit> retrievedUnit = localUnitRepository.findByCode(centerFromCSVFile.get().getUnitCode());
+                    centre.setLocalUnit(retrievedUnit.get());
+                    centre.setIsActive(true);
+                    centreToCreateOrUpdate.add(centre);
+                }
+            } else {
                 centre.setIsActive(false);
                 centreToCreateOrUpdate.add(centre);
             }

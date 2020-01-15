@@ -11,7 +11,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     Optional<Role> findByLibelleAndIsActive(String libelle, Boolean isActive);
 
-    @Query("SELECT r FROM Role r WHERE r.isActive = true")
+    @Query("SELECT r FROM Role r WHERE r.isActive = true ORDER BY r.libelle")
     List<Role> findAllActive();
     
 }

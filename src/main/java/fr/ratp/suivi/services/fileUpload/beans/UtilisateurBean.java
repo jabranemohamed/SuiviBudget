@@ -14,18 +14,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class UtilisateurBean {
 
-    @CsvBindByPosition(position = 0)
+    @CsvBindByPosition(position = 0 ,required = true)
     private String matricule;
 
-    @CsvBindByPosition(position = 1)
+    @CsvBindByPosition(position = 1,required = true)
     private String nom;
 
-    @CsvBindByPosition(position = 2)
+    @CsvBindByPosition(position = 2,required = true)
     private String prenom;
 
-    @CsvBindByPosition(position = 3)
+    @CsvBindByPosition(position = 3,required = true)
     private String role;
 
-    @CsvBindByPosition(position = 4)
+    @CsvBindByPosition(position = 4,required = true)
     private String localUnit;
+
+    @CsvBindByPosition(position = 5)
+    private boolean active = false;
 }

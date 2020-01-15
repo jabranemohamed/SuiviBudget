@@ -10,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,9 +33,16 @@ public class RoleController extends BaseController {
     )
     @GetMapping(produces = {"application/json"}, path = "roles")
     public ResponseEntity getAllRole() {
-
         List<Role> pageOfOrigin = roleService.getAllActiveRoles();
         return new ResponseEntity<>(pageOfOrigin, HttpStatus.OK);
 
     }
+
+    @ApiOperation(value = "Mettre à jour un Role")
+    @PutMapping(path = "role")
+    public ResponseEntity getBudgetsByYearAndUnit(@RequestBody Role role) {
+        Role updatedRole = roleService.updateRole(role);
+        return new ResponseEntity<>(updatedRole, HttpStatus.OK);
+    }
+
 }

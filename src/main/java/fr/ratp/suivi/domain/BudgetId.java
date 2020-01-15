@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Builder
 @Embeddable
 public class BudgetId implements Serializable {
+
     private String grandeActivite;
 
     private String activite;

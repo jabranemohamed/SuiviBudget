@@ -51,22 +51,25 @@ public class UtilisateurImporter extends BaseImporter {
                             .matricule(utilisateurCSV.getMatricule())
                             .localUnit(localUnit.get())
                             .role(localRole.get())
-                            .isActive(true)
+                            .isActive(utilisateurCSV.isActive())
                             .build();
                     utilisateurToCreateOrUpdate.add(newUser);
                 }
-            } else { //a User is already exist with the same compare
-
             }
         });
         //Verify if what exist in dataBase is still in the CSV file otherwise desactivate them
         existingUsers.stream().forEach(user -> {
-            boolean b = utilisateurFromCSVFile.stream().anyMatch(userCSV -> user.getMatricule().equals(userCSV.getMatricule()));
-            if (!b) {
-                user.setIsActive(false);
-                utilisateurToCreateOrUpdate.add(user);
-            }
+            Optional<UtilisateurBean>  userFound = utilisateurFromCSVFile
+                    .stream()
+                    .filter(userCSV -> user.getMatricule().equals(userCSV.getMatricule()))
+                    .findFirst();
+            if (userFound.isPresent()) {
+                user.setIsActive(userFound.get().isActive());
 
+            }else{
+                user.setIsActive(false);
+            }
+            utilisateurToCreateOrUpdate.add(user);
         });
         if (!utilisateurToCreateOrUpdate.isEmpty())
             utilisateurRepository.saveAll(utilisateurToCreateOrUpdate);

@@ -19,54 +19,45 @@ INSERT INTO utilisateur (id,matricule,nom,prenom,role_id,is_active,local_unit_id
 INSERT INTO utilisateur (id,matricule,nom,prenom,role_id,is_active,local_unit_id) VALUES (4,'QS129831','Ali', 'SDP',5,true,2);
 
 -- Table Centre --
-INSERT INTO centre (id,code,local_unit_id,is_active) VALUES (1,'01171',1,true);
-INSERT INTO centre (id,code,local_unit_id,is_active) VALUES (2,'01169',2,true);
+INSERT INTO centre (code,local_unit_id,is_active) VALUES ('01171',1,true);
+INSERT INTO centre (code,local_unit_id,is_active) VALUES ('01169',2,true);
 
 -- Table des budgets --
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
-VALUES (1, 'Redevance', 'IBM', 2019, 100000, 120000, 100000, 103000, 110000,1);
+INSERT INTO budget (grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES ('Redevance', 'IBM', 2020, 100000, 120000, 100000, 103000, 110000,1);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
-VALUES (2, 'Redevance', 'Qlik', 2019, 100000, 120000, 100000, 103000, 110000,1);
+INSERT INTO budget (grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES ('Redevance', 'Qlik', 2020, 100000, 120000, 100000, 103000, 110000,1);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
-VALUES (3, 'Redevance', 'App2', 2019, 50000, 50000, 50000, 50000, 50000,1);
+INSERT INTO budget (grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES ('Redevance', 'App2', 2020, 50000, 50000, 50000, 50000, 50000,1);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
-VALUES (4, 'TMA', 'Appli1', 2019, 80000, 80000, 80000, 80000, 90000,1);
+INSERT INTO budget (grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES ('TMA', 'Appli1', 2020, 80000, 80000, 80000, 80000, 90000,1);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
-VALUES (5, 'TMA', 'Appli2', 2019, 80000, 80000, 80000, 80000, 90000,1);
+INSERT INTO budget (grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES ('TMA', 'Appli2', 2020, 80000, 80000, 80000, 80000, 90000,1);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
-VALUES (6, 'TMA', 'Appli2', 2019, 80000, 80000, 80000, 80000, 90000,2);
+INSERT INTO budget (grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
+VALUES ('Redevance', 'Appli2', 2020, 80000, 80000, 80000, 80000, 90000,2);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
-VALUES (7, 'Redevance', 'Appli2', 2019, 80000, 80000, 80000, 80000, 90000,2);
 
-INSERT INTO budget (id, grande_activite,activite, annee, budget_notifie, estime1, estime2, estime3, estime4,local_unit_id)
-VALUES (8, 'TMA', 'Appli2', 2019, 80000, 80000, 80000, 80000, 90000,3);
 
 -- Table des commandes--
-INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee)
-values('3816623','1838666','00733834','ADSERVIO','TMA application 1 T1','Benoit',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',1,'2019');
+INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee,cmd_a_regulariser,cmd_regularisee)
+values('3816623','1838666','00733834','ADSERVIO','TMA application 1 T1','Benoit',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',1,'2020',false,false);
 
+INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee,cmd_a_regulariser,cmd_regularisee)
+values('3815843','1838346','00733720','ADSERVIO','AMOE appli 1','martin',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',1,'2020',false,false);
 
-INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee)
-values('3815843','1838346','00733720','ADSERVIO','AMOE appli 1','martin',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',1,'2019');
+INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee,cmd_a_regulariser,cmd_regularisee)
+values('3815830','1838337','00733713','FOURNISSEUR 1','Infocentre économique','said',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',1,'2020',false,false);
 
+INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee,cmd_a_regulariser,cmd_regularisee)
+values('3815765','1838329','00733705','FOURNISSEUR','Pilotage - Maintenance opérationnelle de type 2 - Industrialisation','said',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',1,'2020',false,false);
 
-INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee)
-values('3815830','1838337','00733713','FOURNISSEUR 1','Infocentre économique','said',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',1,'2019');
-
-
-INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee)
-values('3815765','1838329','00733705','FOURNISSEUR','Pilotage - Maintenance opérationnelle de type 2 - Industrialisation','said',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',1,'2019');
-
-
-
-INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee)
-values('3800161','1838329','00733705','FOURNISSEUR','Pilotage - Maintenance opérationnelle de type 2 - Industrialisation','said',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',2,'2019');
+INSERT INTO commande (id_dist_cmd,id_entet_cmd,numero_ols,fournisseur,description_commande,moe_prescripteur,qte_engagee_annee_en_cours,reste_a_receptionner,quantite_commandee,quantite_receptionnee,quantite_facturee,recep_avant_annee_en_cours,date_creation_commande,segment1,segment2,segment3,segment4,segment5,segment6,segment7,catgory,marche,desc_ligne_cmd,local_unit_id,annee,cmd_a_regulariser,cmd_regularisee)
+values('3800161','1838329','00733705','FOURNISSEUR','Pilotage - Maintenance opérationnelle de type 2 - Industrialisation','said',836,0,836,836,0,836,'04/12/2019',1,2300000,1171,111111,111,11,12,'APPEL','SITXXXXXX','TMA application 1 T1',2,'2020',false,false);
 
 
 

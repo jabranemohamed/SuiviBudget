@@ -6,8 +6,6 @@ import fr.ratp.suivi.services.CentreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,20 +22,14 @@ public class CentreServiceImpl implements CentreService {
     private final CentreRepository centreRepository;
 
     @Override
-    public List<Centre> getAllCentre() {
-
-        return centreRepository.findAll();
+    public List<Centre> getAllActiveCentre() {
+        return centreRepository.findAllActive();
     }
 
     @Override
-    public Optional<Centre> getCentreById(Long id) {
-
-        return centreRepository.findById(id);
+    public Optional<Centre> getCentreByCode(String code) {
+        return centreRepository.findByCode(code);
     }
 
-    @Override
-    public Page<Centre> getAllCentre(Pageable page) {
 
-        return centreRepository.findAll(page);
-    }
 }

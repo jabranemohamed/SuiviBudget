@@ -92,4 +92,16 @@ public class UtilisateurController extends BaseController {
         user.setToken(tokenProvider.generateToken(authenticationToken.getName(),role));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+
+    @ApiOperation(value = "Activer,desactiver un utilisateur identifié par son matricule")
+    @ApiResponses(value = {@ApiResponse(code = 100, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK")})
+    @PutMapping(produces = {"application/json"}, path = "utilisateur")
+    public ResponseEntity enableUtilisateur(@RequestBody Utilisateur user) {
+
+        Utilisateur updatedUser = utilisateurService.update(user);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
 }

@@ -26,4 +26,6 @@ public interface UtilisateurService {
     Utilisateur signin(String username, String password);
 
     Utilisateur signup(Utilisateur user);
+
+    Utilisateur update(Utilisateur user);
 }

@@ -33,10 +33,10 @@ public class CentreServiceImplTest {
     void getAllCentre() {
         Centre centre = new Centre();
         LocalUnit lu = new LocalUnit().builder().code("SDP").build();
-        centre.builder().code("01171").id(1L).localUnit(lu).build();
+        centre.builder().code("01171").localUnit(lu).build();
         List lis = Arrays.asList(centre);
         when(centreRepository.findAll()).thenReturn(lis);
-        List<Centre> retrievedCentre = centreService.getAllCentre();
+        List<Centre> retrievedCentre = centreService.getAllActiveCentre();
         assertThat(retrievedCentre).isNotNull();
         assertThat(retrievedCentre.size()).isEqualTo(1);
 
@@ -46,17 +46,15 @@ public class CentreServiceImplTest {
 
     @Test
     @DisplayName("Retourner un centre par identifiant")
-    void getCentreById() {
+    void getCentreByCode() {
         Centre centre = new Centre();
-        centre.setId(1L);
         centre.setCode("01171");
 
-        when(centreRepository.findById(1L)).thenReturn(Optional.of(centre));
+        when(centreRepository.findByCode("01171")).thenReturn(Optional.of(centre));
 
-        Optional<Centre> centreById = centreService.getCentreById(1L);
-        assertThat(centreById.get()).isNotNull();
-        assertThat(centreById.get().getId()).isEqualTo(1L);
+        Optional<Centre> centreByCode = centreService.getCentreByCode("01171");
+        assertThat(centreByCode.get()).isNotNull();
 
-        verify(centreRepository).findById(1L);
+        verify(centreRepository).findByCode("01171");
     }
 }
