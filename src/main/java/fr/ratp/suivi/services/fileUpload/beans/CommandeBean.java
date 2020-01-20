@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -75,28 +74,28 @@ public class CommandeBean {
     private BigDecimal recep_avant_annee_en_cours;
 
     @CsvBindByPosition(position = 19)
-    private Date date_creation_commande;
+    private String date_creation_commande;
 
     @CsvBindByPosition(position = 20)
-    private BigDecimal segment1;
+    private String segment1;
 
     @CsvBindByPosition(position = 21)
-    private BigDecimal segment2;
+    private String segment2;
 
     @CsvBindByPosition(position = 22)
-    private BigDecimal segment3;
+    private String segment3;
 
     @CsvBindByPosition(position = 23)
-    private BigDecimal segment4;
+    private String segment4;
 
     @CsvBindByPosition(position = 24)
-    private BigDecimal segment5;
+    private String segment5;
 
     @CsvBindByPosition(position = 25)
-    private BigDecimal segment6;
+    private String segment6;
 
     @CsvBindByPosition(position = 26)
-    private BigDecimal segment7;
+    private String segment7;
 
     @CsvBindByPosition(position = 27)
     private String catgory;
@@ -104,12 +103,12 @@ public class CommandeBean {
     @CsvBindByPosition(position = 28)
     private String marche;
 
-    @CsvBindByPosition(position = 30)
+    @CsvBindByPosition(position = 29)
     private String desc_ligne_cmd;
 
-    @CsvBindByPosition(position = 31)
+    @CsvBindByPosition(position = 30)
     private String localUnit;
 
-    @CsvBindByPosition(position = 32)
+    @CsvBindByPosition(position = 31)
     private String annee;
 }

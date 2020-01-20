@@ -2,10 +2,7 @@ package fr.ratp.suivi.services.fileUpload;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import fr.ratp.suivi.repositories.*;
-import fr.ratp.suivi.services.fileUpload.importer.BudgetImporter;
-import fr.ratp.suivi.services.fileUpload.importer.CenterImporter;
-import fr.ratp.suivi.services.fileUpload.importer.RoleImporter;
-import fr.ratp.suivi.services.fileUpload.importer.UtilisateurImporter;
+import fr.ratp.suivi.services.fileUpload.importer.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +39,9 @@ public class FileUploadService {
     @Autowired
     private final BudgetRepository budgetRepository;
 
+    @Autowired
+    private final CommandeRepository commandeRepository;
+
     public static final String BEAN_PACKAGE_PATH = "fr.ratp.suivi.services.fileUpload.beans.";
 
     public void uploadFile(MultipartFile multipartFile, String PojoName) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
@@ -76,6 +76,10 @@ public class FileUploadService {
             case "Utilisateur":
                 UtilisateurImporter utilisateurImporter = new UtilisateurImporter(utilisateurRepository, roleRepository, localUnitRepository);
                 utilisateurImporter.importData(beans);
+                break;
+            case "Commande":
+                CommandImporter commandImporter = new CommandImporter(commandeRepository, localUnitRepository);
+                commandImporter.importData(beans);
                 break;
             default:
                 System.out.println("Class not found");

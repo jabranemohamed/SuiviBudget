@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Un POJO qui represente un budget d'un activité dans une unité local dans une année
@@ -38,6 +39,9 @@ public class Budget implements Serializable {
     @ManyToOne
     @JoinColumn(name = "localUnit_id", nullable = false, foreignKey = @ForeignKey(name = "FK_LocalUnit"))
     private LocalUnit localUnit;
+
+    @OneToMany(mappedBy = "budget")
+    private List<Commande> commande;
 
 
 }

@@ -40,11 +40,11 @@ public class Commande {
     @Column(nullable = false)
     private String moe_prescripteur;
 
-    private String budget_grande_activite;
+    private String grande_activite;
 
-    private String budget_activite;
+    private String activite;
 
-    private BigDecimal budget_notifie;
+    private BigDecimal notifie;
 
     private BigDecimal bud_budgget_estime1;
 
@@ -68,19 +68,19 @@ public class Commande {
 
     private Date date_creation_commande;
 
-    private BigDecimal segment1;
+    private String segment1;
 
-    private BigDecimal segment2;
+    private String segment2;
 
-    private BigDecimal segment3;
+    private String segment3;
 
-    private BigDecimal segment4;
+    private String segment4;
 
-    private BigDecimal segment5;
+    private String segment5;
 
-    private BigDecimal segment6;
+    private String segment6;
 
-    private BigDecimal segment7;
+    private String segment7;
 
     private String catgory;
 
@@ -94,12 +94,15 @@ public class Commande {
 
     private boolean cmd_regularisee;
 
-    private BigDecimal nouveau_segment7;
+    private String nouveau_segment7;
 
     @ManyToOne
     @JoinColumn(name = "localUnit_id", nullable = false, foreignKey = @ForeignKey(name = "FK_LocalUnit"))
     private LocalUnit localUnit;
 
     private String annee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Budget budget;
 
 }
