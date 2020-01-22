@@ -1,5 +1,6 @@
 package fr.ratp.suivi.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,7 +42,8 @@ public class Budget implements Serializable {
     private LocalUnit localUnit;
 
     @OneToMany(mappedBy = "budget")
-    private List<Commande> commande;
+    @JsonManagedReference
+    private List<Commande> commandes;
 
 
 }

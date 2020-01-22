@@ -1,5 +1,6 @@
 package fr.ratp.suivi.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -103,6 +104,7 @@ public class Commande {
     private String annee;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Budget budget;
 
 }

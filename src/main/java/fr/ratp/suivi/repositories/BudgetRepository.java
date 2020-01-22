@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
@@ -24,6 +25,10 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
     @Query("SELECT b FROM Budget b WHERE b.localUnit.code = ?1 AND b.annee = ?2 AND b.budgetId.grandeActivite = ?3 AND b.budgetId.activite = ?4")
     List<Budget> getAllByLocalUnitAndAnneeAndGrandeActiviteAndActivite(String codeUL, String year,String grandActivite,String activite);
+
+    @Query("SELECT b FROM Budget b WHERE  b.budgetId.grandeActivite = ?1 AND b.budgetId.activite = ?2")
+    Optional<Budget> getAllByGrandeActiviteAndActivite(String grandActivite, String activite);
+
 
 
 }
