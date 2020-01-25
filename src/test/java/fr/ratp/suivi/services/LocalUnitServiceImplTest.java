@@ -29,14 +29,17 @@ public class LocalUnitServiceImplTest {
     @Test
     @DisplayName("Retourner tous les unités local")
     void getAllLocalUnit() {
+        //Setup our mock
         LocalUnit lu = new LocalUnit().builder().code("SDP").build();
         List lis = Arrays.asList(lu);
-
         when(localUnitRepository.findAll()).thenReturn(lis);
-        List<LocalUnit> retrievedLocalUnit = localUnitService.getAllLocalUnit();
+
+        //Execute the service call
+        List<LocalUnit> retrievedLocalUnit = localUnitService.findAllLocalUnit();
+
+        //Verify repository call
         assertThat(retrievedLocalUnit).isNotNull();
         assertThat(retrievedLocalUnit.size()).isEqualTo(1);
-
         verify(localUnitRepository).findAll();
     }
 }

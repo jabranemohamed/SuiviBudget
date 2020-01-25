@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface CommandeService {
 
-    List<Commande> getAllCommandByUnitCodeYear(String localUnitCode, String annee);
+    List<Commande> findAllCommandByUnitCodeYear(String localUnitCode, String annee);
 
-    Page<Commande> getAllCommandByUnitCodeYear(String codeUL, String year, Pageable page);
+    Page<Commande> findAllCommandByUnitCodeYear(String codeUL, String year, Pageable page);
 
     List<Commande> updateCommandes(List<Commande> commandes);
 }

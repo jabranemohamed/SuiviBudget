@@ -40,13 +40,13 @@ public class CommandeController extends BaseController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getPrincipal().toString();
-        Utilisateur user = utilisateurService.getUserByUserName(username).get();
+        Utilisateur user = utilisateurService.findUserByUserName(username).get();
         if (!user.getLocalUnit().getCode().equals(codeUL))
             return new ResponseEntity<>("Error",HttpStatus.UNAUTHORIZED);
 
         pageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE_NUMBER : pageNumber;
         pageSize = (pageSize == null || pageSize < 1) ? DEFAULT_PAGE_SIZE : pageSize;
-        Page<Commande> pageOfCommande = commandeService.getAllCommandByUnitCodeYear(codeUL, annee, PageRequest.of(pageNumber, pageSize));
+        Page<Commande> pageOfCommande = commandeService.findAllCommandByUnitCodeYear(codeUL, annee, PageRequest.of(pageNumber, pageSize));
         return new ResponseEntity<>(pageOfCommande, HttpStatus.OK);
     }
 

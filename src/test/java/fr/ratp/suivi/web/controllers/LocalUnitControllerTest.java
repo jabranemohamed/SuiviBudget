@@ -43,7 +43,7 @@ public class LocalUnitControllerTest {
 
     @Test
     void getAllLocalUnit() throws Exception {
-        given(localUnitService.getAllLocalUnit()).willReturn(listUnit);
+        given(localUnitService.findAllLocalUnit()).willReturn(listUnit);
         mockMvc.perform(get("/api/v1/localUnites"))
                 .andExpect(status().isOk());
     }

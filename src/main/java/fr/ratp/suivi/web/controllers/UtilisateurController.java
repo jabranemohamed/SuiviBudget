@@ -43,7 +43,7 @@ public class UtilisateurController extends BaseController {
 
         pageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE_NUMBER : pageNumber;
         pageSize = (pageSize == null || pageSize < 1) ? DEFAULT_PAGE_SIZE : pageSize;
-        Page<Utilisateur> pageOfOrigin = utilisateurService.getAllUser(PageRequest.of(pageNumber, pageSize));
+        Page<Utilisateur> pageOfOrigin = utilisateurService.findAllUser(PageRequest.of(pageNumber, pageSize));
         return new ResponseEntity<>(pageOfOrigin, HttpStatus.OK);
     }
 
@@ -55,7 +55,7 @@ public class UtilisateurController extends BaseController {
     @GetMapping(produces = {"application/json"}, path = "utilisateurs/{matricule}")
     public ResponseEntity getAllUtilisateurs(@PathVariable(value = "matricule", required = true) String matricule) {
 
-        Optional<Utilisateur> userByMatricule = utilisateurService.getUserByMatricule(matricule);
+        Optional<Utilisateur> userByMatricule = utilisateurService.findUserByMatricule(matricule);
         if (userByMatricule.isPresent())
             return new ResponseEntity<>(userByMatricule.get(), HttpStatus.OK);
         else
@@ -87,7 +87,7 @@ public class UtilisateurController extends BaseController {
             return ResponseEntity.ok(principal);
         }
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        Utilisateur user = utilisateurService.getUserByUserName(authenticationToken.getName()).get();
+        Utilisateur user = utilisateurService.findUserByUserName(authenticationToken.getName()).get();
         Role role = user.getRole();
         user.setToken(tokenProvider.generateToken(authenticationToken.getName(),role));
         return new ResponseEntity<>(user, HttpStatus.OK);

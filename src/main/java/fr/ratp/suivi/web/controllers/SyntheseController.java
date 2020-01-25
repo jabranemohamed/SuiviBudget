@@ -31,7 +31,7 @@ public class SyntheseController {
     public ResponseEntity getBudgetsByYearAndUnit(@PathVariable(value = "codeUL", required = true) String codeUL,
                                                   @PathVariable(value = "annee", required = true) String annee) {
 
-        List<Synthese> listSynthese = syntheseService.getListOfSynthese(codeUL, annee);
+        List<Synthese> listSynthese = syntheseService.findListOfSynthese(codeUL, annee);
         return new ResponseEntity<>(listSynthese, HttpStatus.OK);
     }
 

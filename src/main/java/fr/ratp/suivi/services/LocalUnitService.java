@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface LocalUnitService {
 
-    List<LocalUnit> getAllLocalUnit();
+    List<LocalUnit> findAllLocalUnit();
 }

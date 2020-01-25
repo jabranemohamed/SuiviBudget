@@ -25,7 +25,7 @@ public class SyntheseServiceImpl implements SyntheseService {
     private final BudgetRepository budgetRepository;
 
     @Override
-    public List<Synthese> getListOfSynthese(String codeUL, String year) {
+    public List<Synthese> findListOfSynthese(String codeUL, String year) {
         List<Budget> allBudgetByUnitCodeYear = budgetRepository.getAllBudgetByUnitCodeYear(codeUL, year);
         return allBudgetByUnitCodeYear.stream().map(SyntheseServiceImpl::mapBudgetToSynthese).collect(Collectors.toList());
     }

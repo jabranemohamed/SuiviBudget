@@ -6,6 +6,7 @@ import fr.ratp.suivi.domain.LocalUnit;
 import fr.ratp.suivi.repositories.BudgetRepository;
 import fr.ratp.suivi.services.impl.BudgetServiceImpl;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -50,38 +51,48 @@ public class BudgetServiceImplTest {
 
 
     @Test
-    void getAllBudgetByUnitCode() {
-
+    @DisplayName("Find all budgets by unitCode - Success")
+    void findAllBudgetByUnitCodeSuccess() {
+        //Setup our mock
         when(budgetRepository.getAllBudgetByUnitCode("SDP")).thenReturn(list_budget_2019);
 
+        //Execute the service call
         List<Budget> sdpList = budgetService.getAllBudgetByUnitCode("SDP");
+
+        //Assert the response
         assertThat(sdpList).isNotNull();
         assertThat(sdpList.size()).isEqualTo(2);
-
         verify(budgetRepository).getAllBudgetByUnitCode("SDP");
 
     }
 
     @Test
-    void getAllBudgetByYear() {
+    @DisplayName("Find all budgets by year - Success")
+    void findAllBudgetByYearSuccess() {
+        //Setup our mock
         when(budgetRepository.getAllBudgetByYear("2019")).thenReturn(list_budget_2019);
 
+        //Execute the service call
         List<Budget> sdpList = budgetService.getAllBudgetByYear("2019");
+
+        //Assert the response
         assertThat(sdpList).isNotNull();
         assertThat(sdpList.size()).isEqualTo(2);
-
         verify(budgetRepository).getAllBudgetByYear("2019");
     }
 
     @Test
-    void getAllBudgetByUnitCodeYear() {
-
+    @DisplayName("Find all budgets by code and year - Success")
+    void findAllBudgetByUnitCodeYearSuccess() {
+        //Setup our mock
         when(budgetRepository.getAllBudgetByUnitCodeYear("SDP", "2019")).thenReturn(list_budget_2019);
 
+        //Execute the service call
         List<Budget> sdpList = budgetService.getAllBudgetByUnitCodeYear("SDP", "2019");
+
+        //Assert the response
         assertThat(sdpList).isNotNull();
         assertThat(sdpList.size()).isEqualTo(2);
-
         verify(budgetRepository).getAllBudgetByUnitCodeYear("SDP", "2019");
     }
 

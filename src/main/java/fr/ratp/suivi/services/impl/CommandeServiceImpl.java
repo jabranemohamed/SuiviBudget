@@ -30,12 +30,12 @@ public class CommandeServiceImpl implements CommandeService {
     private final BudgetRepository budgetRepository;
 
     @Override
-    public List<Commande> getAllCommandByUnitCodeYear(String localUnitCode, String annee) {
+    public List<Commande> findAllCommandByUnitCodeYear(String localUnitCode, String annee) {
         return commandeRepository.getAllBudgetByUnitCodeYear(localUnitCode, annee);
     }
 
     @Override
-    public Page<Commande> getAllCommandByUnitCodeYear(String codeUL, String year, Pageable page) {
+    public Page<Commande> findAllCommandByUnitCodeYear(String codeUL, String year, Pageable page) {
         return commandeRepository.getAllBudgetByUnitCodeYear(codeUL, year, page);
     }
 

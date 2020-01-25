@@ -21,6 +21,10 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
@@ -70,6 +74,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Micrometer Prometheus registry  -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -101,7 +111,17 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.7.201606060606</version>
+                <version>0.8.5</version>
+                <configuration>
+                    <excludes>
+                        <exclude>fr/ratp/suivi/domain/*</exclude>
+                        <exclude>fr/ratp/suivi/jwt/*</exclude>
+                        <exclude>fr/ratp/suivi/config/*</exclude>
+                        <exclude>fr/ratp/suivi/web/dto/*</exclude>
+                        <exclude>fr/ratp/suivi/exception/*</exclude>
+                        <exclude>fr/ratp/suivi/services/fileUpload/beans/*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

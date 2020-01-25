@@ -1,9 +1,11 @@
 package fr.ratp.suivi.services;
 
+import fr.ratp.suivi.repositories.RoleRepository;
 import fr.ratp.suivi.services.fileUpload.FileUploadService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -17,6 +19,10 @@ public class FileUploadServiceTest {
 
     @InjectMocks
     FileUploadService fileUploadService;
+
+    @Mock
+    RoleRepository roleRepository;
+
 
 
     @Test

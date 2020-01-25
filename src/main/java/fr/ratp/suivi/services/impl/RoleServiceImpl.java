@@ -22,17 +22,17 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    public List<Role> getAllActiveRoles() {
+    public List<Role> findAllActiveRoles() {
         return roleRepository.findAllActive();
     }
 
     @Override
-    public Optional<Role> getRoleById(Long id) {
+    public Optional<Role> findRoleById(Long id) {
         return roleRepository.findById(id);
     }
 
     @Override
-    public Optional<Role> getRoleByLibelle(String libelle) {
+    public Optional<Role> findRoleByLibelle(String libelle) {
         return roleRepository.findByLibelleAndIsActive(libelle, true);
     }
 

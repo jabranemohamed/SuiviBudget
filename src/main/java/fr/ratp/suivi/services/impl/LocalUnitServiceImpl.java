@@ -21,7 +21,7 @@ public class LocalUnitServiceImpl implements LocalUnitService {
     private final LocalUnitRepository localUnitRepository;
 
     @Override
-    public List<LocalUnit> getAllLocalUnit() {
+    public List<LocalUnit> findAllLocalUnit() {
         return localUnitRepository.findAll();
     }
 }

@@ -61,36 +61,45 @@ public class UtilisateurServiceImplTest {
     @Test
     @DisplayName("Retourner tous les utilisateurs")
     void getAllUser() {
+        //Setup our mock
         when(utilisateurRepository.findAll()).thenReturn(listUtilisateur);
 
-        List<Utilisateur> retrievedUser = utilisateurService.getAllUser();
+        //Execute the service call
+        List<Utilisateur> retrievedUser = utilisateurService.findAllUser();
+
+        //Assert the response
         assertThat(retrievedUser).isNotNull();
         assertThat(retrievedUser.size()).isEqualTo(2);
-
         verify(utilisateurRepository).findAll();
     }
 
     @Test
     @DisplayName("Retourner un utilisateur identifié par son matricule")
     void getUserByMatricule() {
+        //Setup our mock
         when(utilisateurRepository.findByMatricule(MAT_AB_123456)).thenReturn(Optional.of(singleUtilisateur));
 
-        Optional<Utilisateur> userByMatricule = utilisateurService.getUserByMatricule(MAT_AB_123456);
+        //Execute the service call
+        Optional<Utilisateur> userByMatricule = utilisateurService.findUserByMatricule(MAT_AB_123456);
+
+        //Assert the response
         assertThat(userByMatricule.get()).isNotNull();
         assertThat(userByMatricule.get().getMatricule()).isEqualTo(MAT_AB_123456);
-
         verify(utilisateurRepository).findByMatricule(MAT_AB_123456);
     }
 
     @Test
     @DisplayName("Retourner un utilisateur par son id")
     void getUserById() {
+        //Setup our mock
         when(utilisateurRepository.findById(1L)).thenReturn(Optional.of(singleUtilisateur));
 
-        Optional<Utilisateur> userByMatricule = utilisateurService.getUserById(1L);
+        //Execute the service call
+        Optional<Utilisateur> userByMatricule = utilisateurService.findUserById(1L);
+
+        //Assert the response
         assertThat(userByMatricule.get()).isNotNull();
         assertThat(userByMatricule.get().getId()).isEqualTo(1L);
-
         verify(utilisateurRepository).findById(1L);
     }
 

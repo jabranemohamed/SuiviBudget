@@ -10,11 +10,11 @@ import java.util.Optional;
  */
 public interface RoleService {
 
-    List<Role> getAllActiveRoles();
+    List<Role> findAllActiveRoles();
 
-    Optional<Role> getRoleById(Long id);
+    Optional<Role> findRoleById(Long id);
 
-    Optional<Role> getRoleByLibelle(String libelle);
+    Optional<Role> findRoleByLibelle(String libelle);
 
     Role updateRole(Role role);
 }

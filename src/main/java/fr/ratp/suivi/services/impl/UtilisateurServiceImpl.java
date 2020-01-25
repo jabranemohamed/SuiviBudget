@@ -44,22 +44,22 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     private JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public List<Utilisateur> getAllUser() {
+    public List<Utilisateur> findAllUser() {
         return utilisateurRepository.findAll();
     }
 
     @Override
-    public Optional<Utilisateur> getUserByMatricule(String matricule) {
+    public Optional<Utilisateur> findUserByMatricule(String matricule) {
         return utilisateurRepository.findByMatricule(matricule);
     }
 
     @Override
-    public Optional<Utilisateur> getUserById(Long id) {
+    public Optional<Utilisateur> findUserById(Long id) {
         return utilisateurRepository.findById(id);
     }
 
     @Override
-    public Optional<Utilisateur> getUserByUserName(String userName) {
+    public Optional<Utilisateur> findUserByUserName(String userName) {
         return utilisateurRepository.findByUsername(userName);
     }
 
@@ -75,7 +75,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public Page<Utilisateur> getAllUser(Pageable pageRequest) {
+    public Page<Utilisateur> findAllUser(Pageable pageRequest) {
         return utilisateurRepository.findAll(pageRequest);
     }
 

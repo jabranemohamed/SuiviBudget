@@ -9,19 +9,19 @@ import java.util.Optional;
 
 public interface UtilisateurService {
 
-    List<Utilisateur> getAllUser();
+    List<Utilisateur> findAllUser();
 
-    Optional<Utilisateur> getUserByMatricule(String matricule);
+    Optional<Utilisateur> findUserByMatricule(String matricule);
 
-    Optional<Utilisateur> getUserById(Long id);
+    Optional<Utilisateur> findUserById(Long id);
 
-    Optional<Utilisateur> getUserByUserName(String userName);
+    Optional<Utilisateur> findUserByUserName(String userName);
 
     void deleteUsers(List<Utilisateur> users);
 
     void deleteUser(Utilisateur user);
 
-    Page<Utilisateur> getAllUser(Pageable pageRequest);
+    Page<Utilisateur> findAllUser(Pageable pageRequest);
 
     Utilisateur signin(String username, String password);
 

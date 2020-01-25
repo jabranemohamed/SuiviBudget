@@ -29,32 +29,38 @@ public class CentreServiceImplTest {
 
 
     @Test
-    @DisplayName("Retourner tous les centres ")
-    void getAllCentre() {
+    @DisplayName("Find all actives centre - Success")
+    void testFindAllCentreSuccess() {
+        //Setup our mock
         Centre centre = new Centre();
         LocalUnit lu = new LocalUnit().builder().code("SDP").build();
-        centre.builder().code("01171").localUnit(lu).build();
+        centre.builder().code("01171").localUnit(lu).isActive(true).build();
         List lis = Arrays.asList(centre);
-        when(centreRepository.findAll()).thenReturn(lis);
-        List<Centre> retrievedCentre = centreService.getAllActiveCentre();
+        when(centreRepository.findAllActive()).thenReturn(lis);
+
+        //Execute the service call
+        List<Centre> retrievedCentre = centreService.findAllActiveCentre();
+
+        //Assert the response
         assertThat(retrievedCentre).isNotNull();
         assertThat(retrievedCentre.size()).isEqualTo(1);
-
-        verify(centreRepository).findAll();
+        verify(centreRepository).findAllActive();
     }
 
 
     @Test
-    @DisplayName("Retourner un centre par identifiant")
-    void getCentreByCode() {
+    @DisplayName("Find a centre by his code - Success")
+    void testFindCentreByCodeSuccess() {
+        //Setup our mock
         Centre centre = new Centre();
         centre.setCode("01171");
-
         when(centreRepository.findByCode("01171")).thenReturn(Optional.of(centre));
 
-        Optional<Centre> centreByCode = centreService.getCentreByCode("01171");
-        assertThat(centreByCode.get()).isNotNull();
+        //Execute the service call
+        Optional<Centre> centreByCode = centreService.findCentreByCode("01171");
 
+        //Assert the response
+        assertThat(centreByCode.get()).isNotNull();
         verify(centreRepository).findByCode("01171");
     }
 }

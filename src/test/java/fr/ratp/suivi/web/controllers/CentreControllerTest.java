@@ -48,7 +48,7 @@ public class CentreControllerTest {
 
     @Test
     void getAllCentre() throws Exception {
-        given(centreService.getAllActiveCentre()).willReturn(centreList);
+        given(centreService.findAllActiveCentre()).willReturn(centreList);
         mockMvc.perform(get("/api/v1/centres"))
                 .andExpect(status().isOk());
     }

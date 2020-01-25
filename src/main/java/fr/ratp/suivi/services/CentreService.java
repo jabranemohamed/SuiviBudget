@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CentreService {
 
-    List<Centre> getAllActiveCentre();
+    List<Centre> findAllActiveCentre();
 
-    Optional<Centre> getCentreByCode(String code);
+    Optional<Centre> findCentreByCode(String code);
 }

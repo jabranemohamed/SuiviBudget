@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .authorizeRequests()
                 //These are public pages.
-                .antMatchers("/resources/**", "/error","/api/v1/utilisateurs/login", "/api/v1/utilisateurs/**").permitAll()
+                .antMatchers("/actuator/**","/resources/**", "/error","/api/v1/utilisateurs/login", "/api/v1/utilisateurs/**").permitAll()
 
                 //All reamining paths should need authentication.
                 .anyRequest().fullyAuthenticated()
@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/configuration/**")//
                 .antMatchers("/webjars/**")//
                 .antMatchers("/public")
-
+                .antMatchers("/actuator/**")
                 // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
                 .and()
                 .ignoring()

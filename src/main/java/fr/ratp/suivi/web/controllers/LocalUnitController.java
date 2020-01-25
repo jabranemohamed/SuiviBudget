@@ -35,7 +35,7 @@ public class LocalUnitController extends BaseController {
     @GetMapping(produces = {"application/json"}, path = "localUnites")
     public ResponseEntity getAllCentre() {
 
-        List<LocalUnit> pageOfOrigin = localUnitService.getAllLocalUnit();
+        List<LocalUnit> pageOfOrigin = localUnitService.findAllLocalUnit();
         return new ResponseEntity<>(pageOfOrigin, HttpStatus.OK);
 
     }

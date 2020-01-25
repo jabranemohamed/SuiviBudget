@@ -39,7 +39,7 @@ public class CentreController extends BaseController {
 
         pageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE_NUMBER : pageNumber;
         pageSize = (pageSize == null || pageSize < 1) ? DEFAULT_PAGE_SIZE : pageSize;
-        List<Centre> centreList = centreService.getAllActiveCentre();
+        List<Centre> centreList = centreService.findAllActiveCentre();
         return new ResponseEntity<>(centreList, HttpStatus.OK);
 
     }

@@ -22,12 +22,12 @@ public class CentreServiceImpl implements CentreService {
     private final CentreRepository centreRepository;
 
     @Override
-    public List<Centre> getAllActiveCentre() {
+    public List<Centre> findAllActiveCentre() {
         return centreRepository.findAllActive();
     }
 
     @Override
-    public Optional<Centre> getCentreByCode(String code) {
+    public Optional<Centre> findCentreByCode(String code) {
         return centreRepository.findByCode(code);
     }
 

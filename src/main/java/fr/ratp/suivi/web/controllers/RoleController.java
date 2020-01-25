@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,16 +34,20 @@ public class RoleController extends BaseController {
     )
     @GetMapping(produces = {"application/json"}, path = "roles")
     public ResponseEntity getAllRole() {
-        List<Role> pageOfOrigin = roleService.getAllActiveRoles();
+        List<Role> pageOfOrigin = roleService.findAllActiveRoles();
         return new ResponseEntity<>(pageOfOrigin, HttpStatus.OK);
 
     }
 
     @ApiOperation(value = "Mettre à jour un Role")
     @PutMapping(path = "role")
-    public ResponseEntity getBudgetsByYearAndUnit(@RequestBody Role role) {
-        Role updatedRole = roleService.updateRole(role);
-        return new ResponseEntity<>(updatedRole, HttpStatus.OK);
+    public ResponseEntity updateRole(@RequestBody Role role) {
+        Optional<Role> existingRole = roleService.findRoleByLibelle(role.getLibelle());
+        return existingRole.map(p -> {
+            Role updatedRole = roleService.updateRole(role);
+            return ResponseEntity.ok().body(updatedRole);
+        }).orElse(ResponseEntity.notFound().build());
+
     }
 
 }

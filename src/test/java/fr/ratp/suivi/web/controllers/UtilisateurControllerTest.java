@@ -49,7 +49,7 @@ public class UtilisateurControllerTest {
 
     @Test
     void getAllUtilisateur() throws Exception {
-        given(utilisateurService.getAllUser(org.mockito.Matchers.isA(Pageable.class))).willReturn(pagedTasks);
+        given(utilisateurService.findAllUser(org.mockito.Matchers.isA(Pageable.class))).willReturn(pagedTasks);
         mockMvc.perform(get("/api/v1/utilisateurs"))
                 .andExpect(status().isOk());
     }
@@ -57,7 +57,7 @@ public class UtilisateurControllerTest {
     @Test
     void getUtilisateurByMatricule() throws Exception{
         Utilisateur user1 = new Utilisateur().builder().matricule("AB123456").build();
-        given(utilisateurService.getUserByMatricule("AB123456")).willReturn(Optional.of(user1));
+        given(utilisateurService.findUserByMatricule("AB123456")).willReturn(Optional.of(user1));
         mockMvc.perform(get("/api/v1/utilisateurs/{matricule}","AB123456"))
                 .andExpect(status().isOk());
     }

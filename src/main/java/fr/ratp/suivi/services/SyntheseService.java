@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SyntheseService {
 
-    List<Synthese> getListOfSynthese( String codeUL, String year);
+    List<Synthese> findListOfSynthese(String codeUL, String year);
 }
