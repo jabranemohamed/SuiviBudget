@@ -13,13 +13,18 @@ public class Statistics {
 
     private String grandeActivite;
 
-    private BigDecimal budget_notifie = BigDecimal.ZERO;
+    /**
+     * Le total engagé sur ce budget
+     */
+    private BigDecimal engage = BigDecimal.ZERO;
 
-    private BigDecimal estime1 = BigDecimal.ZERO;
+    /**
+     * Le total receptionner sur ce budgt
+     */
+    private BigDecimal receptionne = BigDecimal.ZERO;
 
-    private BigDecimal estime2 = BigDecimal.ZERO;
-
-    private BigDecimal estime3 = BigDecimal.ZERO;
-
-    private BigDecimal estime4 = BigDecimal.ZERO;
+    /**
+     * Le total de reste à réceptionne sur ce budget
+     */
+    private BigDecimal reste_a_receptionne = BigDecimal.ZERO;
 }

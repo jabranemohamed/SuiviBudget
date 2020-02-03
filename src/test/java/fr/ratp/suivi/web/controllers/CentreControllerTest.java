@@ -3,6 +3,7 @@ package fr.ratp.suivi.web.controllers;
 import fr.ratp.suivi.domain.Centre;
 import fr.ratp.suivi.services.CentreService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -47,7 +48,8 @@ public class CentreControllerTest {
     }
 
     @Test
-    void getAllCentre() throws Exception {
+    @DisplayName("Find")
+    void findAllCentreSuccess() throws Exception {
         given(centreService.findAllActiveCentre()).willReturn(centreList);
         mockMvc.perform(get("/api/v1/centres"))
                 .andExpect(status().isOk());

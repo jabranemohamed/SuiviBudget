@@ -37,17 +37,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .authorizeRequests()
                 //These are public pages.
-                .antMatchers("/actuator/**","/resources/**", "/error","/api/v1/utilisateurs/login", "/api/v1/utilisateurs/**").permitAll()
+                    .antMatchers("/","/#/authentication/login-2","index.html","/actuator/**","/resources/**", "/error","/api/v1/utilisateurs/login", "/api/v1/utilisateurs/**").permitAll()
 
                 //All reamining paths should need authentication.
-                .anyRequest().fullyAuthenticated()
+                //.anyRequest().fullyAuthenticated()
                 .and()
                 //Logout will log the user out by invalidated session.
                 .logout().permitAll()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/api/user/logout", "POST"))
                 .and()
                 //login form and path.  path -> /api/v1/utilisateurs/login
-                //.formLogin().loginPage("/api/v1/utilisateurs/login").and()
+                .formLogin().loginPage("/#/authentication/login-2").permitAll()
+                .and()
                 //Enable basic authentication http header "basic: username:password"
                 .httpBasic().and()
                 //Cross side request forgery.
@@ -64,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // Allow swagger to be accessed without authentication
         web.ignoring().antMatchers("/v2/api-docs")//
+                .antMatchers("/#/authentication/login-2")
                 .antMatchers("/swagger-resources/**")//
                 .antMatchers("/swagger-ui.html")//
                 .antMatchers("/configuration/**")//

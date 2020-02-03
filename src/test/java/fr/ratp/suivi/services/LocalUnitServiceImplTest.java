@@ -28,7 +28,7 @@ public class LocalUnitServiceImplTest {
 
     @Test
     @DisplayName("Retourner tous les unités local")
-    void getAllLocalUnit() {
+    void findAllLocalUnitSucess() {
         //Setup our mock
         LocalUnit lu = new LocalUnit().builder().code("SDP").build();
         List lis = Arrays.asList(lu);
