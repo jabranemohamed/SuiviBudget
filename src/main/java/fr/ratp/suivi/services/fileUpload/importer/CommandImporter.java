@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,10 @@ public class CommandImporter extends BaseImporter {
         List<Commande> allCommandeFromDB = commandeRepository.findAll();
         List<CommandeBean> commandeFromCSVFile = (List<CommandeBean>) beans;
         List<Commande> commandeToCreateOrUpdate = new ArrayList<>();
+
+        AtomicInteger newCommandCounter = new AtomicInteger();
+        log.info("Import commandes in_progress....");
+        log.info(commandeFromCSVFile.size()+" ligne dans le fichier command à importer");
 
         commandeFromCSVFile.stream().forEach(commandeCSV -> {
             boolean b = allCommandeFromDB
@@ -115,6 +120,9 @@ public class CommandImporter extends BaseImporter {
 
         if (!commandeToCreateOrUpdate.isEmpty())
             commandeRepository.saveAll(commandeToCreateOrUpdate);
+
+        log.info("Nombre de nouveaux command crée : "+ newCommandCounter.get());
+        log.info("Fin d'import de fichier command");
         return true;
     }
 }

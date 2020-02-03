@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,10 @@ public class BudgetImporter extends BaseImporter {
         List<Budget> allBudgetFromDB = budgetRepository.findAll();
         List<BudgetBean> allBudgetFromCSVFile = (List<BudgetBean>) beans;
         List<Budget> budgetToCreateOrUpdate = new ArrayList<>();
+        AtomicInteger newBudgetCounter = new AtomicInteger();
+
+        log.info("Import budget in_progress....");
+        log.info(allBudgetFromCSVFile.size()+" ligne dans le fichier budget à importer");
 
         allBudgetFromCSVFile.stream().forEach(budgetFromCSV -> {
                     boolean exist = allBudgetFromDB
@@ -50,6 +55,7 @@ public class BudgetImporter extends BaseImporter {
                                 .estime4(budgetFromCSV.getEstime4())
                                 .localUnit(localUnitRepository.findByCode(budgetFromCSV.getLocalUnit()).get()).build();
                         budgetToCreateOrUpdate.add(newBudget);
+                        newBudgetCounter.getAndIncrement();
                     }
                 }
         );
@@ -77,6 +83,9 @@ public class BudgetImporter extends BaseImporter {
 
         if (!budgetToCreateOrUpdate.isEmpty())
             budgetRepository.saveAll(budgetToCreateOrUpdate);
+
+        log.info("Nombre de nouveaux budgts crée : "+ newBudgetCounter.get());
+        log.info("Fin d'import de fichier budget");
         return true;
     }
 }

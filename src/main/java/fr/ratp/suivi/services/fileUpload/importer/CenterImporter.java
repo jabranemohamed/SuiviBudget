@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +35,10 @@ public class CenterImporter extends BaseImporter {
         List<CentreBean> centreFromCSVFile = (List<CentreBean>) beans;
         List<Centre> centreToCreateOrUpdate = new ArrayList<>();
 
+        AtomicInteger newCenterCounter = new AtomicInteger();
+        log.info("Import centre in_progress....");
+        log.info(centreFromCSVFile.size()+" ligne dans le fichier centre à importer");
+
         centreFromCSVFile.stream().forEach(centreCSV -> {
             boolean b = existingCentre
                     .stream()
@@ -44,6 +49,7 @@ public class CenterImporter extends BaseImporter {
                     Centre newCentre = new Centre().builder().code(centreCSV.getCentreCode()).localUnit(localUnitCode.get())
                             .isActive(true).build();
                     centreToCreateOrUpdate.add(newCentre);
+                    newCenterCounter.getAndIncrement();
                 }
 
             }
@@ -71,6 +77,8 @@ public class CenterImporter extends BaseImporter {
         if (!centreToCreateOrUpdate.isEmpty())
             centreRepository.saveAll(centreToCreateOrUpdate);
 
+        log.info("Nombre de nouveaux centre crée : "+ newCenterCounter.get());
+        log.info("Fin d'import de fichier centre");
         return true;
 
     }

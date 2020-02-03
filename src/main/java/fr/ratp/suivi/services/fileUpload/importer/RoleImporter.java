@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Class d'import du fichier Role.csv
@@ -45,6 +46,10 @@ public class RoleImporter extends BaseImporter {
         //List to create or to update
         List<Role> rolesToCreateOrUpdate = new ArrayList<>();
 
+        AtomicInteger newRoleCounter = new AtomicInteger();
+        log.info("Import Role in_progress....");
+        log.info(roleFromCSVFile.size()+" ligne dans le fichier role à importer");
+
         roleFromCSVFile.stream().forEach(roleCSV -> {
             boolean b = existingRole
                     .stream()
@@ -72,6 +77,8 @@ public class RoleImporter extends BaseImporter {
         if (!rolesToCreateOrUpdate.isEmpty())
             roleRepository.saveAll(rolesToCreateOrUpdate);
 
+        log.info("Nombre de nouveaux role crée : "+ newRoleCounter.get());
+        log.info("Fin d'import de fichier role");
         return true;
 
     }
